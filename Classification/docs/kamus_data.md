@@ -58,22 +58,3 @@ Satu baris per transaksi. Skor dipakai saat transaksi terjadi.
 Parameter biaya: setiap transaksi yang ditandai untuk ditinjau berbiaya **Rp 25.000**.
 Transaksi fraud yang ditandai dianggap tertahan tanpa kerugian. Transaksi fraud yang
 lolos merugikan sebesar nominalnya.
-
-## Tugas 3: clustering.csv.gz
-
-Satu baris per pelanggan, ringkasan 90 hari terakhir. Tidak ada label.
-
-| Kolom | Keterangan |
-| --- | --- |
-| id_pelanggan | ID pelanggan |
-| recency_hari, frekuensi_90h, belanja_90h, rata2_keranjang | Recency, frekuensi, total belanja (rupiah), nilai keranjang rata-rata |
-| item_per_pesanan | Rata-rata jumlah barang per pesanan |
-| porsi_<kategori> | Porsi belanja per kategori (16 kolom, jumlahnya 1) |
-| porsi_jam_pagi, porsi_jam_siang, porsi_jam_sore, porsi_jam_malam | Porsi waktu belanja (jumlahnya 1) |
-| persen_voucher, persen_flash_sale, persen_paylater, persen_cod | Porsi pesanan dengan voucher, flash sale, paylater, dan COD |
-| retur_90h, rating_beri_rata2, ulasan_90h | Jumlah retur, rata-rata rating yang diberikan, jumlah ulasan |
-| sesi_per_minggu, durasi_sesi_menit, rasio_konversi | Aktivitas aplikasi |
-| lama_member_bulan, umur, kota_tier, perangkat | Profil pelanggan |
-| jumlah_alamat, wishlist, klik_iklan_30h | Jumlah alamat tersimpan, isi wishlist, klik iklan 30 hari |
-| belanja_30h, frekuensi_30h | Total belanja dan frekuensi 30 hari terakhir |
-| n01-n10 | Atribut tambahan dari sistem CRM (anonim) |
