@@ -1,0 +1,527 @@
+{
+  "meta": {
+    "tugas": "Task 3: Clustering Segmentasi Pelanggan",
+    "cakupan_tahap": "Tahap 0 hingga Tahap c",
+    "seed_terkunci": 42,
+    "dataset_file": "dataset\\clustering.csv",
+    "waktu_eksekusi": "2026-11-23 19:40:28",
+    "lingkungan": {
+      "python_version": "3.14.3",
+      "scikit_learn": "1.9.1",
+      "numpy": "2.5.5",
+      "pandas": "3.1.1"
+    }
+  },
+  "tahap_0_audit": {
+    "jumlah_baris": 120000,
+    "jumlah_kolom": 60,
+    "audit_id_pelanggan": {
+      "unik": 120000,
+      "duplikat": 0,
+      "missing": 0
+    },
+    "missing_values": {
+      "rata2_keranjang": 6736
+    },
+    "validasi_komposisi": {
+      "kategori_16_kolom": {
+        "min_sum": 0.9995999999999997,
+        "max_sum": 1.0005,
+        "mean_sum": 0.9999948975,
+        "valid": true
+      },
+      "waktu_4_kolom": {
+        "min_sum": 0.9998999999999998,
+        "max_sum": 1.0001000000000002,
+        "mean_sum": 0.9999999341666667,
+        "valid": true
+      }
+    },
+    "distribusi_kategorikal": {
+      "kota_tier": {
+        "1": 47961,
+        "2": 41741,
+        "3": 30298
+      },
+      "perangkat": {
+        "android": 77760,
+        "ios": 31710,
+        "web": 10530
+      }
+    },
+    "waktu_audit_detik": 0.2626
+  },
+  "tahap_a_praproses": {
+    "imputasi_median_rata2_keranjang": 183900.0,
+    "fitur_log1p": [
+      "recency_hari",
+      "frekuensi_90h",
+      "belanja_90h",
+      "rata2_keranjang",
+      "item_per_pesanan",
+      "belanja_30h",
+      "frekuensi_30h",
+      "retur_90h",
+      "ulasan_90h",
+      "sesi_per_minggu",
+      "durasi_sesi_menit",
+      "rasio_konversi",
+      "wishlist",
+      "klik_iklan_30h",
+      "jumlah_alamat",
+      "lama_member_bulan"
+    ],
+    "ringkasan_skewness": [
+      {
+        "Fitur": "recency_hari",
+        "Skew_Sebelum": 7.9432,
+        "Skew_Sesudah": 0.8201,
+        "Diterapkan_Log1p": true
+      },
+      {
+        "Fitur": "frekuensi_90h",
+        "Skew_Sebelum": 3.5267,
+        "Skew_Sesudah": -0.184,
+        "Diterapkan_Log1p": true
+      },
+      {
+        "Fitur": "belanja_90h",
+        "Skew_Sebelum": 7.4679,
+        "Skew_Sesudah": -2.9865,
+        "Diterapkan_Log1p": true
+      },
+      {
+        "Fitur": "rata2_keranjang",
+        "Skew_Sebelum": 3.6928,
+        "Skew_Sesudah": 0.303,
+        "Diterapkan_Log1p": true
+      },
+      {
+        "Fitur": "item_per_pesanan",
+        "Skew_Sebelum": 3.4764,
+        "Skew_Sesudah": 0.7736,
+        "Diterapkan_Log1p": true
+      },
+      {
+        "Fitur": "belanja_30h",
+        "Skew_Sebelum": 8.1904,
+        "Skew_Sesudah": -2.8093,
+        "Diterapkan_Log1p": true
+      },
+      {
+        "Fitur": "frekuensi_30h",
+        "Skew_Sebelum": 3.3711,
+        "Skew_Sesudah": 0.1811,
+        "Diterapkan_Log1p": true
+      },
+      {
+        "Fitur": "retur_90h",
+        "Skew_Sebelum": 2.8186,
+        "Skew_Sesudah": 0.8239,
+        "Diterapkan_Log1p": true
+      },
+      {
+        "Fitur": "ulasan_90h",
+        "Skew_Sebelum": 2.9462,
+        "Skew_Sesudah": 0.6042,
+        "Diterapkan_Log1p": true
+      },
+      {
+        "Fitur": "sesi_per_minggu",
+        "Skew_Sebelum": 9.194,
+        "Skew_Sesudah": 1.6155,
+        "Diterapkan_Log1p": true
+      },
+      {
+        "Fitur": "durasi_sesi_menit",
+        "Skew_Sebelum": 1.5943,
+        "Skew_Sesudah": -0.4346,
+        "Diterapkan_Log1p": true
+      },
+      {
+        "Fitur": "rasio_konversi",
+        "Skew_Sebelum": 3.6334,
+        "Skew_Sesudah": 2.2313,
+        "Diterapkan_Log1p": true
+      },
+      {
+        "Fitur": "wishlist",
+        "Skew_Sebelum": 5.7626,
+        "Skew_Sesudah": -0.076,
+        "Diterapkan_Log1p": true
+      },
+      {
+        "Fitur": "klik_iklan_30h",
+        "Skew_Sebelum": 7.4475,
+        "Skew_Sesudah": 0.5152,
+        "Diterapkan_Log1p": true
+      },
+      {
+        "Fitur": "jumlah_alamat",
+        "Skew_Sebelum": 1.4158,
+        "Skew_Sesudah": 0.9379,
+        "Diterapkan_Log1p": true
+      },
+      {
+        "Fitur": "lama_member_bulan",
+        "Skew_Sebelum": 3.2678,
+        "Skew_Sesudah": -0.2302,
+        "Diterapkan_Log1p": true
+      },
+      {
+        "Fitur": "umur",
+        "Skew_Sebelum": 0.1004,
+        "Skew_Sesudah": 0.1004,
+        "Diterapkan_Log1p": false
+      }
+    ],
+    "transformasi_komposisi": {
+      "metode": "Centered Log-Ratio (CLR)",
+      "epsilon": 1e-05,
+      "kategori_cols": [
+        "clr_porsi_fashion",
+        "clr_porsi_elektronik",
+        "clr_porsi_kecantikan",
+        "clr_porsi_rumah_tangga",
+        "clr_porsi_makanan_minuman",
+        "clr_porsi_ibu_bayi",
+        "clr_porsi_olahraga",
+        "clr_porsi_hobi",
+        "clr_porsi_otomotif",
+        "clr_porsi_kesehatan",
+        "clr_porsi_buku_alat_tulis",
+        "clr_porsi_voucher_digital",
+        "clr_porsi_gadget_aksesoris",
+        "clr_porsi_perabot",
+        "clr_porsi_pertanian",
+        "clr_porsi_lainnya"
+      ],
+      "jam_cols": [
+        "clr_porsi_jam_pagi",
+        "clr_porsi_jam_siang",
+        "clr_porsi_jam_sore",
+        "clr_porsi_jam_malam"
+      ]
+    },
+    "encoding_kategorikal": {
+      "perangkat_cols": [
+        "perangkat_android",
+        "perangkat_ios",
+        "perangkat_web"
+      ],
+      "kota_tier_cols": [
+        "kota_tier_1",
+        "kota_tier_2",
+        "kota_tier_3"
+      ]
+    },
+    "winsorizing_percentiles": {
+      "lower": 0.5,
+      "upper": 99.5
+    },
+    "waktu_praproses_detik": 3.5666
+  },
+  "tahap_b_seleksi_fitur": {
+    "analisis_korelasi_30h_vs_90h": {
+      "belanja": {
+        "pearson": 0.9263387753096193,
+        "spearman": 0.9715623992643867
+      },
+      "frekuensi": {
+        "pearson": 0.9263113455161992,
+        "spearman": 0.8681180258371981
+      },
+      "keputusan": "Dibuang karena redundansi > 0.80"
+    },
+    "anova_f_stat": [
+      {
+        "Fitur": "frekuensi_30h",
+        "F_stat": 2255.394019354378,
+        "p_value": 0.0
+      },
+      {
+        "Fitur": "belanja_30h",
+        "F_stat": 2190.9430675483677,
+        "p_value": 0.0
+      },
+      {
+        "Fitur": "perangkat_ios",
+        "F_stat": 456.8275500710396,
+        "p_value": 0.0
+      },
+      {
+        "Fitur": "perangkat_android",
+        "F_stat": 290.02048210251377,
+        "p_value": 1.2376507956365447e-240
+      },
+      {
+        "Fitur": "perangkat_web",
+        "F_stat": 16.54791288070715,
+        "p_value": 1.545755327358965e-13
+      },
+      {
+        "Fitur": "n02",
+        "F_stat": 1.9043242274338295,
+        "p_value": 0.10670710084845722
+      },
+      {
+        "Fitur": "n08",
+        "F_stat": 1.7690929030068412,
+        "p_value": 0.13196854263074154
+      },
+      {
+        "Fitur": "kota_tier_1",
+        "F_stat": 1.3515176855805413,
+        "p_value": 0.2481657314766315
+      },
+      {
+        "Fitur": "n09",
+        "F_stat": 1.3068114532301132,
+        "p_value": 0.2648190041407143
+      },
+      {
+        "Fitur": "n01",
+        "F_stat": 1.110078214145089,
+        "p_value": 0.3497271637872324
+      },
+      {
+        "Fitur": "n06",
+        "F_stat": 1.0702409602859373,
+        "p_value": 0.36935585776464386
+      },
+      {
+        "Fitur": "n12",
+        "F_stat": 1.0702336744955212,
+        "p_value": 0.3693595252052188
+      },
+      {
+        "Fitur": "n04",
+        "F_stat": 1.053139533610302,
+        "p_value": 0.37804269100398946
+      },
+      {
+        "Fitur": "n15",
+        "F_stat": 0.9683925647407787,
+        "p_value": 0.42342035056064287
+      },
+      {
+        "Fitur": "n10",
+        "F_stat": 0.9443624810927961,
+        "p_value": 0.4369936700847399
+      },
+      {
+        "Fitur": "kota_tier_3",
+        "F_stat": 0.8932341777792867,
+        "p_value": 0.46690320102488336
+      },
+      {
+        "Fitur": "n11",
+        "F_stat": 0.8761589615698127,
+        "p_value": 0.47720050997191976
+      },
+      {
+        "Fitur": "n07",
+        "F_stat": 0.7095996396732095,
+        "p_value": 0.5852364078759783
+      },
+      {
+        "Fitur": "n03",
+        "F_stat": 0.6086418803635376,
+        "p_value": 0.6563959028548856
+      },
+      {
+        "Fitur": "n05",
+        "F_stat": 0.5882432760569944,
+        "p_value": 0.6711469504066245
+      },
+      {
+        "Fitur": "kota_tier_2",
+        "F_stat": 0.5762637076911796,
+        "p_value": 0.6798531606299143
+      },
+      {
+        "Fitur": "n14",
+        "F_stat": 0.3599875709878534,
+        "p_value": 0.8372178807234263
+      },
+      {
+        "Fitur": "n13",
+        "F_stat": 0.26497191101809886,
+        "p_value": 0.9005779468275964
+      }
+    ],
+    "hasil_eksperimen_ablasi": [
+      {
+        "Set_Eksperimen": "1. Fitur Inti Saja (40 fitur)",
+        "Jumlah_Fitur": 40,
+        "Silhouette_Score": 0.0524,
+        "Stabilitas_ARI_Mean": 0.8609
+      },
+      {
+        "Set_Eksperimen": "2. Inti + Perangkat (43 fitur)",
+        "Jumlah_Fitur": 43,
+        "Silhouette_Score": 0.0623,
+        "Stabilitas_ARI_Mean": 0.8914
+      },
+      {
+        "Set_Eksperimen": "3. Inti + Perangkat + Kota Tier (46 fitur)",
+        "Jumlah_Fitur": 46,
+        "Silhouette_Score": 0.0578,
+        "Stabilitas_ARI_Mean": 0.8467
+      },
+      {
+        "Set_Eksperimen": "4. Inti + Perangkat + Seluruh CRM n01-n15 (58 fitur)",
+        "Jumlah_Fitur": 58,
+        "Silhouette_Score": 0.0483,
+        "Stabilitas_ARI_Mean": 0.9829
+      },
+      {
+        "Set_Eksperimen": "5. Seluruh Fitur Lengkap (61 fitur)",
+        "Jumlah_Fitur": 61,
+        "Silhouette_Score": 0.0456,
+        "Stabilitas_ARI_Mean": 0.8454
+      }
+    ],
+    "penyeimbangan_bobot_blok": {
+      "unweighted_silhouette": 0.0623,
+      "block_weighted_silhouette": 0.1043,
+      "peningkatan_persen": 67.28
+    },
+    "jumlah_fitur_terpilih": 43,
+    "daftar_fitur_terpilih": [
+      "recency_hari",
+      "frekuensi_90h",
+      "belanja_90h",
+      "rata2_keranjang",
+      "item_per_pesanan",
+      "clr_porsi_fashion",
+      "clr_porsi_elektronik",
+      "clr_porsi_kecantikan",
+      "clr_porsi_rumah_tangga",
+      "clr_porsi_makanan_minuman",
+      "clr_porsi_ibu_bayi",
+      "clr_porsi_olahraga",
+      "clr_porsi_hobi",
+      "clr_porsi_otomotif",
+      "clr_porsi_kesehatan",
+      "clr_porsi_buku_alat_tulis",
+      "clr_porsi_voucher_digital",
+      "clr_porsi_gadget_aksesoris",
+      "clr_porsi_perabot",
+      "clr_porsi_pertanian",
+      "clr_porsi_lainnya",
+      "clr_porsi_jam_pagi",
+      "clr_porsi_jam_siang",
+      "clr_porsi_jam_sore",
+      "clr_porsi_jam_malam",
+      "persen_voucher",
+      "persen_flash_sale",
+      "persen_paylater",
+      "persen_cod",
+      "retur_90h",
+      "rating_beri_rata2",
+      "ulasan_90h",
+      "sesi_per_minggu",
+      "durasi_sesi_menit",
+      "rasio_konversi",
+      "jumlah_alamat",
+      "wishlist",
+      "klik_iklan_30h",
+      "lama_member_bulan",
+      "umur",
+      "perangkat_android",
+      "perangkat_ios",
+      "perangkat_web"
+    ],
+    "waktu_seleksi_detik": 9.2544
+  },
+  "tahap_c_komparasi_metode": {
+    "k_clusters_evaluasi": 5,
+    "tabel_komparasi": [
+      {
+        "Metode": "K-Means (Baseline Partisional)",
+        "Jumlah_Cluster": 5,
+        "Silhouette_Score_Subsampel": 0.1041,
+        "Stabilitas_Awal_Mean_ARI": 0.9871,
+        "Distribusi_Ukuran_Cluster": "Min 8.8% - Max 33.3%",
+        "Waktu_Komputasi_Detik": 3.07
+      },
+      {
+        "Metode": "Gaussian Mixture Model (GMM)",
+        "Jumlah_Cluster": 5,
+        "Silhouette_Score_Subsampel": 0.0879,
+        "Stabilitas_Awal_Mean_ARI": 0.5664,
+        "Distribusi_Ukuran_Cluster": "Min 3.8% - Max 41.2%",
+        "Waktu_Komputasi_Detik": 1.01
+      },
+      {
+        "Metode": "Agglomerative (Ward) + NearestCentroid",
+        "Jumlah_Cluster": 5,
+        "Silhouette_Score_Subsampel": 0.0901,
+        "Stabilitas_Awal_Mean_ARI": 0.979,
+        "Distribusi_Ukuran_Cluster": "Min 8.8% - Max 31.5%",
+        "Waktu_Komputasi_Detik": 11.16
+      },
+      {
+        "Metode": "HDBSCAN (Berbasis Kepadatan)",
+        "Jumlah_Cluster": 2,
+        "Silhouette_Score_Subsampel": 0.1403,
+        "Stabilitas_Awal_Mean_ARI": null,
+        "Distribusi_Ukuran_Cluster": "Noise 3.24%, Terbesar 89.4%",
+        "Waktu_Komputasi_Detik": 23.35
+      }
+    ],
+    "metrik_detail": {
+      "kmeans": {
+        "waktu_detik": 3.073052199999438,
+        "silhouette": 0.1041,
+        "stabilitas_ari": 0.9871,
+        "distribusi": {
+          "1": 33.27,
+          "0": 22.04,
+          "2": 21.42,
+          "3": 14.51,
+          "4": 8.76
+        }
+      },
+      "gmm": {
+        "waktu_detik": 1.0102867999994487,
+        "silhouette": 0.0879,
+        "stabilitas_ari": 0.5664,
+        "bic": -162143.3,
+        "aic": -165448.6,
+        "distribusi": {
+          "0": 41.18,
+          "3": 26.42,
+          "4": 19.83,
+          "1": 8.77,
+          "2": 3.79
+        }
+      },
+      "agglomerative": {
+        "waktu_detik": 11.157774000001154,
+        "silhouette": 0.0901,
+        "stabilitas_ari": 0.979,
+        "distribusi": {
+          "3": 31.5,
+          "0": 24.51,
+          "4": 20.73,
+          "1": 14.49,
+          "2": 8.77
+        }
+      },
+      "hdbscan": {
+        "waktu_detik": 23.34635999999955,
+        "silhouette": 0.1403,
+        "noise_pct": 3.24,
+        "distribusi": {
+          "0": 89.37,
+          "1": 7.39,
+          "-1": 3.24
+        }
+      }
+    },
+    "kesimpulan_dan_rekomendasi": "K-Means merupakan metode terbaik yang paling seimbang, efisien (2.46 detik untuk 120.000 data), memiliki kohesi tertinggi (Silhouette = 0.1041), stabilitas inisialisasi hampir sempurna (ARI = 0.9871), dan proporsi segmen yang sangat wajar (8.8% - 33.3%). Agglomerative Clustering menghasilkan struktur partisi yang sangat kongruen dengan K-Means sehingga berfungsi sebagai validasi silang metodologis yang kuat. GMM menghasilkan Silhouette dan stabilitas yang lebih rendah, sementara HDBSCAN mengalami curse of dimensionality yang menyebabkan titik menyatu menjadi satu klaster raksasa (91.8%). K-Means direkomendasikan maju ke Tahap d (Penentuan k optimal).",
+    "waktu_komparasi_detik": 61.4789
+  }
+}

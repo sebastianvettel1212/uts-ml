@@ -1,0 +1,60 @@
+Nama_Fitur,Kelompok,Status_Akhir,Metrik_Bukti,Alasan_Teknis
+recency_hari,RFM & Nilai Uang,Dipakai,Fitur Perilaku Inti,"Informasi fundamental RFM, kepuasan, dan interaksi e-commerce."
+frekuensi_90h,RFM & Nilai Uang,Dipakai,Fitur Perilaku Inti,"Informasi fundamental RFM, kepuasan, dan interaksi e-commerce."
+belanja_90h,RFM & Nilai Uang,Dipakai,Fitur Perilaku Inti,"Informasi fundamental RFM, kepuasan, dan interaksi e-commerce."
+rata2_keranjang,RFM & Nilai Uang,Dipakai,Fitur Perilaku Inti,"Informasi fundamental RFM, kepuasan, dan interaksi e-commerce."
+item_per_pesanan,RFM & Nilai Uang,Dipakai,Fitur Perilaku Inti,"Informasi fundamental RFM, kepuasan, dan interaksi e-commerce."
+porsi_fashion,Komposisi Kategori,Dipakai (Transformasi CLR & Pembobotan Blok),"Row sum = 1.0, CLR D=16",Memetakan data simpleks komposisi ke Euclidean standar dan diseimbangkan bobotnya.
+porsi_elektronik,Komposisi Kategori,Dipakai (Transformasi CLR & Pembobotan Blok),"Row sum = 1.0, CLR D=16",Memetakan data simpleks komposisi ke Euclidean standar dan diseimbangkan bobotnya.
+porsi_kecantikan,Komposisi Kategori,Dipakai (Transformasi CLR & Pembobotan Blok),"Row sum = 1.0, CLR D=16",Memetakan data simpleks komposisi ke Euclidean standar dan diseimbangkan bobotnya.
+porsi_rumah_tangga,Komposisi Kategori,Dipakai (Transformasi CLR & Pembobotan Blok),"Row sum = 1.0, CLR D=16",Memetakan data simpleks komposisi ke Euclidean standar dan diseimbangkan bobotnya.
+porsi_makanan_minuman,Komposisi Kategori,Dipakai (Transformasi CLR & Pembobotan Blok),"Row sum = 1.0, CLR D=16",Memetakan data simpleks komposisi ke Euclidean standar dan diseimbangkan bobotnya.
+porsi_ibu_bayi,Komposisi Kategori,Dipakai (Transformasi CLR & Pembobotan Blok),"Row sum = 1.0, CLR D=16",Memetakan data simpleks komposisi ke Euclidean standar dan diseimbangkan bobotnya.
+porsi_olahraga,Komposisi Kategori,Dipakai (Transformasi CLR & Pembobotan Blok),"Row sum = 1.0, CLR D=16",Memetakan data simpleks komposisi ke Euclidean standar dan diseimbangkan bobotnya.
+porsi_hobi,Komposisi Kategori,Dipakai (Transformasi CLR & Pembobotan Blok),"Row sum = 1.0, CLR D=16",Memetakan data simpleks komposisi ke Euclidean standar dan diseimbangkan bobotnya.
+porsi_otomotif,Komposisi Kategori,Dipakai (Transformasi CLR & Pembobotan Blok),"Row sum = 1.0, CLR D=16",Memetakan data simpleks komposisi ke Euclidean standar dan diseimbangkan bobotnya.
+porsi_kesehatan,Komposisi Kategori,Dipakai (Transformasi CLR & Pembobotan Blok),"Row sum = 1.0, CLR D=16",Memetakan data simpleks komposisi ke Euclidean standar dan diseimbangkan bobotnya.
+porsi_buku_alat_tulis,Komposisi Kategori,Dipakai (Transformasi CLR & Pembobotan Blok),"Row sum = 1.0, CLR D=16",Memetakan data simpleks komposisi ke Euclidean standar dan diseimbangkan bobotnya.
+porsi_voucher_digital,Komposisi Kategori,Dipakai (Transformasi CLR & Pembobotan Blok),"Row sum = 1.0, CLR D=16",Memetakan data simpleks komposisi ke Euclidean standar dan diseimbangkan bobotnya.
+porsi_gadget_aksesoris,Komposisi Kategori,Dipakai (Transformasi CLR & Pembobotan Blok),"Row sum = 1.0, CLR D=16",Memetakan data simpleks komposisi ke Euclidean standar dan diseimbangkan bobotnya.
+porsi_perabot,Komposisi Kategori,Dipakai (Transformasi CLR & Pembobotan Blok),"Row sum = 1.0, CLR D=16",Memetakan data simpleks komposisi ke Euclidean standar dan diseimbangkan bobotnya.
+porsi_pertanian,Komposisi Kategori,Dipakai (Transformasi CLR & Pembobotan Blok),"Row sum = 1.0, CLR D=16",Memetakan data simpleks komposisi ke Euclidean standar dan diseimbangkan bobotnya.
+porsi_lainnya,Komposisi Kategori,Dipakai (Transformasi CLR & Pembobotan Blok),"Row sum = 1.0, CLR D=16",Memetakan data simpleks komposisi ke Euclidean standar dan diseimbangkan bobotnya.
+porsi_jam_pagi,Komposisi Waktu,Dipakai (Transformasi CLR & Pembobotan Blok),"Row sum = 1.0, CLR D=4",Mencerminkan waktu aktif belanja pelanggan tanpa kolinearitas sempurna.
+porsi_jam_siang,Komposisi Waktu,Dipakai (Transformasi CLR & Pembobotan Blok),"Row sum = 1.0, CLR D=4",Mencerminkan waktu aktif belanja pelanggan tanpa kolinearitas sempurna.
+porsi_jam_sore,Komposisi Waktu,Dipakai (Transformasi CLR & Pembobotan Blok),"Row sum = 1.0, CLR D=4",Mencerminkan waktu aktif belanja pelanggan tanpa kolinearitas sempurna.
+porsi_jam_malam,Komposisi Waktu,Dipakai (Transformasi CLR & Pembobotan Blok),"Row sum = 1.0, CLR D=4",Mencerminkan waktu aktif belanja pelanggan tanpa kolinearitas sempurna.
+persen_voucher,Persentase Perilaku,Dipakai,Fitur Perilaku Inti,"Informasi fundamental RFM, kepuasan, dan interaksi e-commerce."
+persen_flash_sale,Persentase Perilaku,Dipakai,Fitur Perilaku Inti,"Informasi fundamental RFM, kepuasan, dan interaksi e-commerce."
+persen_paylater,Persentase Perilaku,Dipakai,Fitur Perilaku Inti,"Informasi fundamental RFM, kepuasan, dan interaksi e-commerce."
+persen_cod,Persentase Perilaku,Dipakai,Fitur Perilaku Inti,"Informasi fundamental RFM, kepuasan, dan interaksi e-commerce."
+retur_90h,Aktivitas & Interaksi,Dipakai,Fitur Perilaku Inti,"Informasi fundamental RFM, kepuasan, dan interaksi e-commerce."
+rating_beri_rata2,Aktivitas & Interaksi,Dipakai,Fitur Perilaku Inti,"Informasi fundamental RFM, kepuasan, dan interaksi e-commerce."
+ulasan_90h,Aktivitas & Interaksi,Dipakai,Fitur Perilaku Inti,"Informasi fundamental RFM, kepuasan, dan interaksi e-commerce."
+sesi_per_minggu,Aktivitas & Interaksi,Dipakai,Fitur Perilaku Inti,"Informasi fundamental RFM, kepuasan, dan interaksi e-commerce."
+durasi_sesi_menit,Aktivitas & Interaksi,Dipakai,Fitur Perilaku Inti,"Informasi fundamental RFM, kepuasan, dan interaksi e-commerce."
+rasio_konversi,Aktivitas & Interaksi,Dipakai,Fitur Perilaku Inti,"Informasi fundamental RFM, kepuasan, dan interaksi e-commerce."
+jumlah_alamat,Aktivitas & Interaksi,Dipakai,Fitur Perilaku Inti,"Informasi fundamental RFM, kepuasan, dan interaksi e-commerce."
+wishlist,Aktivitas & Interaksi,Dipakai,Fitur Perilaku Inti,"Informasi fundamental RFM, kepuasan, dan interaksi e-commerce."
+klik_iklan_30h,Aktivitas & Interaksi,Dipakai,Fitur Perilaku Inti,"Informasi fundamental RFM, kepuasan, dan interaksi e-commerce."
+lama_member_bulan,Profil Pelanggan Numerik,Dipakai,Fitur Perilaku Inti,"Informasi fundamental RFM, kepuasan, dan interaksi e-commerce."
+umur,Profil Pelanggan Numerik,Dipakai,Fitur Perilaku Inti,"Informasi fundamental RFM, kepuasan, dan interaksi e-commerce."
+kota_tier,Profil Pelanggan Kategorikal,Dibuang,Stabilitas ARI turun ke 0.7721,"F-stat rendah (< 4.8), penambahan kolom melemahkan stabilitas cluster."
+perangkat,Profil Pelanggan Kategorikal,Dipakai (One-Hot 3 Kolom),"ANOVA F=463.7, Stabilitas ARI naik ke 0.9769",Pembeda kuat adopsi digital pelanggan antar-segmen.
+belanja_30h,Redundan (Jangka Pendek 30h),Dibuang,Korelasi r=0.9263 > 0.80,Redundan dengan ringkasan 90h yang lebih stabil.
+frekuensi_30h,Redundan (Jangka Pendek 30h),Dibuang,Korelasi r=0.9263 > 0.80,Redundan dengan ringkasan 90h yang lebih stabil.
+n01,Atribut CRM Anonim,Dibuang,"ANOVA F=1.11, p=0.350","Noise acak sintetik, menurunkan Silhouette dari 0.0625 ke 0.0480 pada ablasi."
+n02,Atribut CRM Anonim,Dibuang,"ANOVA F=1.90, p=0.107","Noise acak sintetik, menurunkan Silhouette dari 0.0625 ke 0.0480 pada ablasi."
+n03,Atribut CRM Anonim,Dibuang,"ANOVA F=0.61, p=0.656","Noise acak sintetik, menurunkan Silhouette dari 0.0625 ke 0.0480 pada ablasi."
+n04,Atribut CRM Anonim,Dibuang,"ANOVA F=1.05, p=0.378","Noise acak sintetik, menurunkan Silhouette dari 0.0625 ke 0.0480 pada ablasi."
+n05,Atribut CRM Anonim,Dibuang,"ANOVA F=0.59, p=0.671","Noise acak sintetik, menurunkan Silhouette dari 0.0625 ke 0.0480 pada ablasi."
+n06,Atribut CRM Anonim,Dibuang,"ANOVA F=1.07, p=0.369","Noise acak sintetik, menurunkan Silhouette dari 0.0625 ke 0.0480 pada ablasi."
+n07,Atribut CRM Anonim,Dibuang,"ANOVA F=0.71, p=0.585","Noise acak sintetik, menurunkan Silhouette dari 0.0625 ke 0.0480 pada ablasi."
+n08,Atribut CRM Anonim,Dibuang,"ANOVA F=1.77, p=0.132","Noise acak sintetik, menurunkan Silhouette dari 0.0625 ke 0.0480 pada ablasi."
+n09,Atribut CRM Anonim,Dibuang,"ANOVA F=1.31, p=0.265","Noise acak sintetik, menurunkan Silhouette dari 0.0625 ke 0.0480 pada ablasi."
+n10,Atribut CRM Anonim,Dibuang,"ANOVA F=0.94, p=0.437","Noise acak sintetik, menurunkan Silhouette dari 0.0625 ke 0.0480 pada ablasi."
+n11,Atribut CRM Anonim,Dibuang,"ANOVA F=0.88, p=0.477","Noise acak sintetik, menurunkan Silhouette dari 0.0625 ke 0.0480 pada ablasi."
+n12,Atribut CRM Anonim,Dibuang,"ANOVA F=1.07, p=0.369","Noise acak sintetik, menurunkan Silhouette dari 0.0625 ke 0.0480 pada ablasi."
+n13,Atribut CRM Anonim,Dibuang,"ANOVA F=0.26, p=0.901","Noise acak sintetik, menurunkan Silhouette dari 0.0625 ke 0.0480 pada ablasi."
+n14,Atribut CRM Anonim,Dibuang,"ANOVA F=0.36, p=0.837","Noise acak sintetik, menurunkan Silhouette dari 0.0625 ke 0.0480 pada ablasi."
+n15,Atribut CRM Anonim,Dibuang,"ANOVA F=0.97, p=0.423","Noise acak sintetik, menurunkan Silhouette dari 0.0625 ke 0.0480 pada ablasi."
