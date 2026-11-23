@@ -1,0 +1,124 @@
+{
+  "timestamp": "2026-11-23T23:18:59.120498",
+  "seed": 42,
+  "tahap_1": {
+    "train_shape": [
+      403077,
+      85
+    ],
+    "test_shape": [
+      106674,
+      84
+    ],
+    "train_period": [
+      "2025-01-01 00:02:53",
+      "2025-08-31 23:58:04"
+    ],
+    "test_period": [
+      "2025-09-01 00:01:51",
+      "2025-10-31 23:57:22"
+    ]
+  },
+  "tahap_2": {
+    "fraud_rate": 0.006504960590656376,
+    "n_fraud": 2622,
+    "mean_loss_fraud": 1209456.0,
+    "cost_review": 25000
+  },
+  "tahap_3": {
+    "prauc_with_leak": 0.33830122084872344,
+    "prauc_without_leak": 0.22844858390084377,
+    "prauc_drop": 0.10985263694787967,
+    "leak_cols_dropped": [
+      "flag_review_manual"
+    ]
+  },
+  "tahap_4": {
+    "maturity_days": 21,
+    "val_days": 21,
+    "gap_days": 3,
+    "mature_rows": 367610,
+    "train_split_rows": 327091,
+    "val_split_rows": 35805,
+    "base_val_cost": 250166288.0
+  },
+  "tahap_5": {
+    "total_engineered_features": 114,
+    "drift_cols_dropped": [
+      "v15"
+    ]
+  },
+  "tahap_6": {
+    "logistic_regression": {
+      "prauc": 0.43147919427950676,
+      "cost": 215364200.0,
+      "time_sec": 6.151871681213379
+    },
+    "lightgbm": {
+      "prauc": 0.40168893996482785,
+      "cost": 99859496.0,
+      "time_sec": 6.476427793502808
+    },
+    "xgboost": {
+      "prauc": 0.5840572254335497,
+      "cost": 54093200.0,
+      "time_sec": 15.139720439910889
+    },
+    "catboost": {
+      "prauc": 0.5365517509482595,
+      "cost": 67057200.0,
+      "time_sec": 62.88025116920471
+    }
+  },
+  "tahap_7": {
+    "class_weighting": {
+      "prauc": 0.5041913123788534,
+      "cost": 80535000.0
+    },
+    "undersampling": {
+      "prauc": 0.4912154069905199,
+      "cost": 80328900.0
+    },
+    "natural_distribution": {
+      "prauc": 0.40168893996482785,
+      "cost": 99859496.0
+    }
+  },
+  "tahap_8": {
+    "expanding_prauc": 0.40168893996482785,
+    "sliding_prauc": 0.3834652998591711,
+    "time_decay_prauc": 0.4012539368297411
+  },
+  "tahap_9": {
+    "ensemble_weights": {
+      "lgb": 0.0,
+      "xgb": 0.8,
+      "cat": 0.2
+    },
+    "ensemble_prauc": 0.6040137536534971,
+    "ensemble_logloss": 0.014901710804810725
+  },
+  "tahap_10": {
+    "optimal_alpha": 0.5,
+    "optimal_cost": 42182400.0,
+    "base_cost": 250166288.0,
+    "savings_rupiah": 207983888.0,
+    "savings_pct": 83.13825562299584
+  },
+  "tahap_11": {
+    "error_by_kanal": {
+      "aplikasi": 9563100.0,
+      "kartu": 4449500.0,
+      "qris": 20006600.0,
+      "va": 5565300.0,
+      "web": 2597900.0
+    }
+  },
+  "tahap_12": {
+    "test_rows": 106674,
+    "mean_test_prob": 0.008513365718772554,
+    "flagged_count": 3364,
+    "flag_rate": 0.03153533194592872,
+    "review_budget": 84100000.0
+  }
+}

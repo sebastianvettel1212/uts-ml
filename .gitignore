@@ -20,3 +20,7 @@ Thumbs.db
 ehthumbs.db
 Desktop.ini
 .DS_Store
+
+# Raw Large Dataset (> 100MB)
+*.csv.raw
+Classification/dataset/klasifikasi_train.csv
