@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Laporan UTS Machine Learning</title>
+<style>
+  @page { size: A4; margin: 16mm 15mm 16mm 15mm; }
+  body { font-family: "Segoe UI", Arial, sans-serif; font-size: 9.6pt; line-height: 1.42; color: #111; }
+  h1 { font-size: 17pt; margin: 0 0 4px; }
+  h2 { font-size: 13pt; margin: 16px 0 6px; padding-bottom: 3px; border-bottom: 2px solid #1f4e79; color: #1f4e79; }
+  h3 { font-size: 10.6pt; margin: 11px 0 4px; color: #1f4e79; }
+  p { margin: 4px 0 6px; text-align: justify; }
+  ul, ol { margin: 3px 0 6px; padding-left: 20px; }
+  li { margin: 1px 0; }
+  table { border-collapse: collapse; width: 100%; margin: 5px 0 8px; font-size: 8.6pt; page-break-inside: avoid; }
+  th, td { border: 1px solid #b7c4d3; padding: 2.5px 5px; text-align: left; vertical-align: top; }
+  th { background: #e8eef5; }
+  td.n, th.n { text-align: right; }
+  tr.b td { font-weight: 600; background: #f3f7fb; }
+  figure { margin: 6px 0 9px; text-align: center; page-break-inside: avoid; }
+  figure img { max-width: 100%; max-height: 62mm; }
+  figcaption { font-size: 8.4pt; color: #444; margin-top: 2px; }
+  code { font-family: Consolas, monospace; font-size: 8.8pt; background: #f2f2f2; padding: 0 2px; }
+  .sampul { border: 1px solid #b7c4d3; padding: 10px 14px; margin-bottom: 10px; }
+  .kecil { font-size: 8.6pt; color: #444; }
+  .pb { page-break-before: always; }
+</style>
+</head>
+<body>
+
+<div class="sampul">
+  <h1>Laporan UTS Machine Learning</h1>
+  <p><b>Hands-on Machine Learning: Regresi, Klasifikasi, dan Clustering</b> (tugas kelompok)</p>
+  <p>Zidan Alghifari (101032330177) &middot; Zacky Yusuf Hakim (101032300183)</p>
+  <p class="kecil">Repositori: github.com/xcoook1es/uts-ml &middot; Semua angka di laporan ini dibaca dari <code>kode/hasil/tugas1.json</code>, <code>kode/reports/summary_metrics.json</code>, dan <code>kode/hasil/tugas3.json</code>, dan dapat direproduksi dengan <code>python kode/jalankan.py</code> (SEED = 42).</p>
+</div>
+
+<h2>Task 1 &ndash; Regresi: Estimasi Durasi Pengiriman (P50 &amp; P90)</h2>
+<p>Tujuan: memprediksi <code>durasi_jam</code> paket September&ndash;Oktober 2025 saat paket di-pickup, sebagai median (P50) dan batas atas 90% (P90). Data latih 250.000 paket (Januari&ndash;Agustus 2025, ditarik 31 Agustus), data uji 60.000 paket. Metrik: pinball loss (q = 0,5 dan 0,9) dan coverage P90 (proporsi <i>y</i> &le; P90).</p>
+
+<h3>a. Audit data</h3>
+<table>
+<tr><th>Temuan</th><th>Bukti</th><th>Tindakan</th></tr>
+<tr><td>Label rusak</td><td>370 durasi &gt; 1000 jam (maks 25.452 jam); 100% kelipatan 6, padahal di data normal hanya 1,6%. 2.804 label &ldquo;tiba&rdquo; setelah data ditarik (mustahil).</td><td>Dibuang dari data latih (tersisa 247.082 baris).</td></tr>
+<tr><td>Missing tidak acak</td><td><code>berat_kg</code> kosong 5,6% (uji 5,4%); median durasi 71,4 jam vs 61,1 jam bila terisi.</td><td>Ditambah penanda <code>berat_kosong</code>.</td></tr>
+<tr><td>Sentinel</td><td><code>jarak_km</code> = 0 (703 baris) dan = 9999 (456 baris; juga 130 di uji); jarak wajar terjauh 6.031 km.</td><td>Diubah menjadi NaN.</td></tr>
+<tr><td>Kebocoran</td><td><code>jumlah_scan</code>: SMD train vs uji &minus;1,45; median 8&ndash;9 per bulan di latih tetapi 1 di uji (scan bertambah selama perjalanan).</td><td>Dibuang.</td></tr>
+<tr><td>Drift tanpa sinyal</td><td><code>f30</code>: korelasi Spearman 0,27 dengan tanggal, &minus;0,004 dengan target; SMD 0,57.</td><td>Dibuang.</td></tr>
+<tr><td>Kategori baru</td><td>Kurir <code>K13</code> hanya ada di uji (2.342 paket, 3,9%).</td><td>Ditangani di bagian d.</td></tr>
+</table>
+<p><b>Dampak kebocoran</b> (LightGBM kuantil, latih Januari&ndash;Juni, uji Juli&ndash;Agustus):</p>
+<table>
+<tr><th>Skenario</th><th class="n">Pinball50</th><th class="n">Pinball90</th><th class="n">Coverage90</th></tr>
+<tr><td>Dengan <code>jumlah_scan</code></td><td class="n">5,362</td><td class="n">2,947</td><td class="n">0,876</td></tr>
+<tr class="b"><td>Dengan <code>jumlah_scan</code>, nilainya seperti di data uji</td><td class="n">10,940</td><td class="n">13,574</td><td class="n">0,439</td></tr>
+<tr><td>Tanpa <code>jumlah_scan</code></td><td class="n">6,755</td><td class="n">4,340</td><td class="n">0,874</td></tr>
+<tr><td>Tanpa <code>jumlah_scan</code> dan <code>f30</code></td><td class="n">6,758</td><td class="n">4,337</td><td class="n">0,874</td></tr>
+</table>
+<p>Dengan <code>jumlah_scan</code> model tampak paling baik, tetapi pada kondisi nyata (scan &asymp; 1 saat pickup) coverage P90 runtuh ke 44%. Membuang <code>f30</code> tidak mengubah skor.</p>
+<figure><img src="../hasil/gambar/a_distribusi_target.png" alt=""><figcaption>Gambar 1. Distribusi durasi: ekor panjang (kanan, skala log) yang menjadi alasan log-transform pada model linear.</figcaption></figure>
+
+<h3>b. Skema validasi</h3>
+<p>Dua lipatan waktu <i>expanding window</i> dengan horizon dua bulan seperti data uji: Januari&ndash;April &rarr; Mei&ndash;Juni dan Januari&ndash;Juni &rarr; Juli&ndash;Agustus. Pembanding: CV acak 5-fold dengan model yang sama.</p>
+<table>
+<tr><th>Skema</th><th class="n">Pinball50</th><th class="n">Pinball90</th><th class="n">Coverage90</th></tr>
+<tr><td>CV acak 5-fold (std pinball50 antar-fold 0,039)</td><td class="n">6,639</td><td class="n">4,302</td><td class="n">0,883</td></tr>
+<tr><td>CV waktu, rata-rata 2 lipatan</td><td class="n">6,625</td><td class="n">4,301</td><td class="n">0,889</td></tr>
+<tr class="b"><td>Lipatan terakhir: Juli&ndash;Agustus</td><td class="n">6,743</td><td class="n">4,328</td><td class="n">0,876</td></tr>
+</table>
+<p>CV acak sedikit optimis dibanding lipatan yang paling mirip kondisi uji (6,64 vs 6,74, sekitar 2,5 kali std antar-fold) dan menyembunyikan temuan terpenting: coverage P90 turun dari 0,903 (Mei&ndash;Juni) ke 0,876 (Juli&ndash;Agustus). Selisihnya kecil karena sumber drift terbesar sudah dibuang di audit. Semua tuning dan perbandingan memakai lipatan waktu.</p>
+
+<h3>c. Model dan tuning</h3>
+<table>
+<tr><th>Model (rata-rata 2 lipatan waktu)</th><th class="n">Pinball50</th><th class="n">Pinball90</th><th class="n">Coverage90</th></tr>
+<tr><td>Baseline: kuantil empiris per layanan &times; pulau tujuan</td><td class="n">10,120</td><td class="n">6,212</td><td class="n">0,900</td></tr>
+<tr><td>Ridge pada log(durasi), P90 dari kuantil residu (alpha terbaik = 1)</td><td class="n">7,345</td><td class="n">4,466</td><td class="n">0,909</td></tr>
+<tr><td>LightGBM kuantil (default)</td><td class="n">6,625</td><td class="n">4,301</td><td class="n">0,889</td></tr>
+<tr><td>LightGBM kuantil (dituning)</td><td class="n">6,596</td><td class="n">4,271</td><td class="n">0,890</td></tr>
+<tr><td>+ target encoding <code>kota_tujuan</code> + penyamaran kurir (d)</td><td class="n">6,563</td><td class="n">4,185</td><td class="n">0,895</td></tr>
+</table>
+<p>Ridge memakai <code>Pipeline</code> + <code>ColumnTransformer</code> (imputasi median, standardisasi, one-hot dengan <code>handle_unknown="ignore"</code>). LightGBM memakai <code>objective="quantile"</code> untuk &alpha; = 0,5 dan 0,9. Grid 8 konfigurasi (<code>num_leaves</code>, <code>min_child_samples</code>, <code>n_estimators</code>) dinilai hanya di lipatan waktu. P50 terbaik dengan pohon kompleks (127 daun, 600 pohon), sedangkan P90 terbaik dengan pohon sederhana (31 daun, minimal 300 sampel per daun): model kompleks pada ekor distribusi overfit dan coverage-nya turun ke 0,87. Peningkatan dari tuning kecil (6,625 &rarr; 6,596).</p>
+
+<h3>d. Kategori kardinalitas tinggi dan kategori baru</h3>
+<table>
+<tr><th>Cara menangani <code>kota_tujuan</code> (405 level)</th><th class="n">Pinball50</th><th class="n">Pinball90</th><th class="n">Coverage90</th></tr>
+<tr><td>Kategori bawaan LightGBM</td><td class="n">6,625</td><td class="n">4,301</td><td class="n">0,889</td></tr>
+<tr class="b"><td>Target encoding (cross-fitting 5-fold, rata-rata log durasi)</td><td class="n">6,580</td><td class="n">4,233</td><td class="n">0,892</td></tr>
+<tr><td>Tanpa <code>kota_tujuan</code></td><td class="n">6,800</td><td class="n">4,311</td><td class="n">0,893</td></tr>
+</table>
+<p><b>Kurir baru.</b> Karena label K13 tidak tersedia, kurir yang dikenal disembunyikan dari data latih lalu diprediksi sebagai &ldquo;tidak dikenal&rdquo; (4 kurir: K02, K05, K08, K11, lipatan Juli&ndash;Agustus). Rata-rata: kurir dikenal 6,231 / 3,918 / 0,901; tak dikenal tanpa penyamaran 6,753 / 4,104 / 0,885; tak dikenal dengan penyamaran 5% kurir di data latih 6,722 / 4,116 / <b>0,898</b>. Kurir baru sekitar 8% lebih sulit diprediksi; penyamaran memperbaiki coverage, meskipun efeknya tidak seragam per kurir (K08 sedikit memburuk). Di data uji, kategori disamakan dengan data latih sehingga K13 otomatis menjadi &ldquo;tidak dikenal&rdquo;.</p>
+
+<h3>e. Ketidakpastian dan kalibrasi</h3>
+<p>Kalibrasi conformal satu sisi (CQR) pada skala log: skor <i>s</i> = log <i>y</i> &minus; log P90, koreksi = kuantil ke-&lceil;(<i>n</i>+1)&middot;0,9&rceil;/<i>n</i> dari skor pada data kalibrasi, lalu P90 dikalikan exp(koreksi). Koreksi selalu diverifikasi pada periode sesudah data kalibrasi.</p>
+<table>
+<tr><th>Skema (model sebelum perbaikan f35)</th><th class="n">Faktor</th><th class="n">Coverage sebelum &rarr; sesudah</th><th class="n">Pinball90 sebelum &rarr; sesudah</th></tr>
+<tr><td>Kalibrasi Mei&ndash;Juni &rarr; uji Juli&ndash;Agustus</td><td class="n">0,985</td><td class="n">0,881 &rarr; 0,870</td><td class="n">4,203 &rarr; 4,244</td></tr>
+<tr class="b"><td>Kalibrasi Juli &rarr; uji Agustus</td><td class="n">1,040</td><td class="n">0,887 &rarr; 0,910</td><td class="n">4,015 &rarr; 4,008</td></tr>
+</table>
+<p>Kalibrasi dari periode lama justru memperburuk karena kondisi berubah; jaminan conformal hanya berlaku bila data kalibrasi mirip dengan periode prediksi, sehingga dipakai bulan terbaru. Hanya 6 baris mengalami <i>quantile crossing</i> (P90 &lt; P50) dan diperbaiki dengan <code>max(P90, P50)</code>.</p>
+
+<h3>f. Analisis galat dan interpretasi</h3>
+<table>
+<tr><th>Kelompok (lipatan Juli&ndash;Agustus)</th><th>Galat relatif (pinball50 / median durasi)</th><th>Coverage90</th></tr>
+<tr><td>Layanan</td><td>hemat 11,6%, ekspres 10,8%, reguler 10,1%, kargo 9,6%</td><td>0,874&ndash;0,887</td></tr>
+<tr><td>Pulau tujuan</td><td>Papua 12,5%, Maluku 12,1%, Kalimantan 11,9%, &hellip;, Jawa 9,4%</td><td>0,867&ndash;0,891</td></tr>
+<tr class="b"><td>Mitra kurir</td><td>K07 14,9%; kurir lain 10,1&ndash;10,6%</td><td>K07 <b>0,605</b>; lainnya 0,89&ndash;0,92</td></tr>
+</table>
+<p><b>Temuan K07.</b> Median durasi K07 naik dari &asymp;59 jam (Januari&ndash;Juni) ke &asymp;77 jam (Juli&ndash;Agustus), dan pada saat yang sama fitur <code>f35</code> K07 naik dari 0,985 ke 1,28 (kurir lain stabil &asymp;1,005; di data uji K07 tetap 1,281). Korelasi <code>f35</code> dengan median durasi antar-kurir 0,997, sehingga <code>f35</code> berperilaku sebagai indeks kelambatan kurir yang tersedia saat pickup. Model pohon tidak dapat mengekstrapolasi ke nilai <code>f35</code> yang belum pernah dilihat. <b>Perbaikan:</b> model dilatih pada <code>durasi / f35</code> lalu prediksi dikalikan kembali dengan <code>f35</code>.</p>
+<table>
+<tr><th>Lipatan Juli&ndash;Agustus</th><th class="n">Pinball50</th><th class="n">Pinball90</th><th class="n">Coverage90</th><th class="n">K07: coverage90</th></tr>
+<tr><td>Sebelum (v1)</td><td class="n">6,675</td><td class="n">4,203</td><td class="n">0,881</td><td class="n">0,605</td></tr>
+<tr class="b"><td>Target / f35 (v2)</td><td class="n">6,483</td><td class="n">4,030</td><td class="n">0,895</td><td class="n">0,792</td></tr>
+</table>
+<p>Di Mei&ndash;Juni (tanpa perubahan) v1 dan v2 setara (6,451 vs 6,465). Model v2 hampir terkalibrasi dengan sendirinya (coverage Agustus 0,9015), sehingga koreksi conformal final hanya &times;1,007. SHAP (TreeSHAP bawaan LightGBM, 5.000 sampel; jumlah kontribusi + baseline sama dengan prediksi) menempatkan layanan, jarak, dan target encoding kota tujuan sebagai fitur terpenting, diikuti <code>f17</code>, <code>f35</code>, dan antrean hub; durasi naik seiring jarak.</p>
+<figure><img src="../hasil/gambar/f_shap.png" alt=""><figcaption>Gambar 2. Rata-rata |SHAP| model P50 dan pengaruh dua fitur numerik teratas.</figcaption></figure>
+<p><b>Model final.</b> Dilatih pada seluruh 247.082 baris bersih dengan semua keputusan di atas; P90 dikalikan 1,007 dan dipaksa &ge; P50. <code>prediksi_regresi.csv</code>: 60.000 baris, median P50 63,1 jam, median P90 83,9 jam.</p>
+
+<h2 class="pb">Task 2 &ndash; Klasifikasi: Deteksi Fraud</h2>
+<p>Tujuan: memprediksi probabilitas <code>is_fraud</code> transaksi September&ndash;Oktober 2025 dan memutuskan transaksi yang ditandai untuk ditinjau (biaya Rp 25.000 per transaksi; fraud yang lolos merugikan sebesar nominalnya). Data latih 403.077 transaksi (fraud 0,65%, 2.622 kasus), data uji 106.674 transaksi. Rata-rata nominal fraud Rp 1.209.456, atau 48,4 kali biaya review.</p>
+
+<h3>a. Audit label dan fitur</h3>
+<p><b>Label belum lengkap (right-censoring).</b> Tingkat fraud turun ke 0,0000% pada 29&ndash;31 Agustus, karena fraud baru terkonfirmasi setelah investigasi. Transaksi dalam 21 hari terakhir (setelah 10 Agustus) dikeluarkan dari data latih (embargo), menyisakan 367.610 transaksi matang. <b>Kebocoran:</b> <code>flag_review_manual</code> (tingkat fraud 30,4% saat bernilai 1 vs 0,13%) adalah tindakan setelah transaksi; PR-AUC model dasar turun dari 0,338 menjadi 0,228 tanpa kolom ini, sehingga kolom ini dibuang.</p>
+
+<h3>b. Validasi berbasis waktu</h3>
+<p>Validasi out-of-time: latih 1 Januari&ndash;17 Juli (327.091 baris), purge gap 3 hari (untuk fitur rolling seperti <code>trx_7h</code>), validasi 21 Juli&ndash;10 Agustus (35.805 baris, fraud 0,66%). Embargo 21 hari memastikan label validasi sudah cukup matang. Biaya tanpa deteksi pada lipatan validasi: Rp 250.166.288.</p>
+
+<h3>c. Fitur perilaku</h3>
+<p>114 fitur dihitung hanya dari informasi sebelum transaksi: kecepatan transaksi (rasio <code>trx_1j</code>/<code>trx_24j</code>, transaksi beruntun &lt; 2 menit), pengurasan saldo (saldo setelah transaksi, indikator &gt; 90% dan &gt; 99% saldo), skor pengambilalihan akun (perangkat baru, ganti password, gagal login, IP luar negeri), kecepatan geografis, risiko merchant, fitur jam siklis, serta target encoding kausal berbasis <i>expanding window</i> untuk <code>id_pengguna</code>, <code>id_merchant</code>, <code>email_domain</code>, dan <code>kategori_merchant</code>.</p>
+
+<h3>d. Model dan ketimpangan kelas</h3>
+<table>
+<tr><th>Model (lipatan validasi)</th><th class="n">PR-AUC</th><th class="n">Total biaya (Rp)</th></tr>
+<tr><td>Logistic Regression</td><td class="n">0,4315</td><td class="n">215.364.200</td></tr>
+<tr><td>LightGBM</td><td class="n">0,4017</td><td class="n">99.859.496</td></tr>
+<tr><td>CatBoost</td><td class="n">0,5366</td><td class="n">67.057.200</td></tr>
+<tr><td>XGBoost</td><td class="n">0,5841</td><td class="n">54.093.200</td></tr>
+</table>
+<table>
+<tr><th>Pendekatan ketimpangan kelas</th><th class="n">PR-AUC</th><th class="n">Total biaya (Rp)</th></tr>
+<tr><td>Class weighting (<code>scale_pos_weight</code>)</td><td class="n">0,5042</td><td class="n">80.535.000</td></tr>
+<tr><td>Undersampling 1:10</td><td class="n">0,4912</td><td class="n">80.328.900</td></tr>
+<tr><td>Distribusi alami (LightGBM, sama seperti tabel model)</td><td class="n">0,4017</td><td class="n">99.859.496</td></tr>
+<tr class="b"><td>Distribusi alami + kalibrasi + ensemble + aturan biaya (pendekatan final)</td><td class="n">0,6040</td><td class="n">42.182.400</td></tr>
+</table>
+<p>Weighting dan undersampling menaikkan PR-AUC LightGBM tetapi merusak kalibrasi probabilitas. Kelompok memilih distribusi alami lalu menangani ketimpangan pada tahap keputusan (ambang berbasis biaya), karena aturan biaya membutuhkan probabilitas yang terkalibrasi.</p>
+<figure><img src="../reports/figures/fig_5_imbalance_models.png" alt=""><figcaption>Gambar 3. Perbandingan pendekatan ketimpangan kelas.</figcaption></figure>
+
+<h3>e. Pergeseran pola</h3>
+<p>Uji Kolmogorov&ndash;Smirnov train vs uji menunjukkan <code>v15</code> bergeser ekstrem (KS = 0,5055; fitur lain &lt; 0,026), sehingga <code>v15</code> dibuang. Adaptasi jendela latih: expanding window PR-AUC 0,4017, sliding 3 bulan 0,3835, time-decay 0,4013 (biaya terendah Rp 95.235.200). Karena fraud langka, riwayat panjang lebih bermanfaat daripada jendela pendek; model final memakai expanding window.</p>
+
+<h3>f. Kalibrasi dan keputusan</h3>
+<p>Isotonic regression menurunkan log-loss XGBoost dari 0,01704 ke 0,01507 (Brier 0,003841 &rarr; 0,003516). Ensemble 80% XGBoost + 20% CatBoost: PR-AUC 0,6040, log-loss 0,01490. Transaksi ditandai bila ekspektasi kerugian melebihi biaya review: <i>p<sub>i</sub></i> &middot; <i>N<sub>i</sub></i> &gt; &alpha; &middot; 25.000; transaksi bernominal &le; Rp 25.000 tidak pernah ditandai.</p>
+<table>
+<tr><th>Strategi</th><th class="n">Total biaya (Rp)</th><th class="n">Ditandai</th><th class="n">Recall</th><th class="n">Penghematan</th></tr>
+<tr><td>Tidak menandai apa pun</td><td class="n">250.166.288</td><td class="n">0</td><td class="n">0%</td><td class="n">0%</td></tr>
+<tr><td>Menandai semua</td><td class="n">895.125.000</td><td class="n">35.805</td><td class="n">100%</td><td class="n">rugi</td></tr>
+<tr><td>Ambang tetap p &gt; 0,05</td><td class="n">75.339.000</td><td class="n">582</td><td class="n">75,2%</td><td class="n">69,9%</td></tr>
+<tr><td>Aturan biaya, &alpha; = 1</td><td class="n">44.114.300</td><td class="n">573</td><td class="n">74,0%</td><td class="n">82,4%</td></tr>
+<tr class="b"><td>Aturan biaya, &alpha; = 0,5 (dipilih)</td><td class="n">42.182.400</td><td class="n">907</td><td class="n">80,7%</td><td class="n">83,1%</td></tr>
+</table>
+<figure><img src="../reports/figures/fig_8_total_cost_alpha.png" alt=""><figcaption>Gambar 4. Total biaya terhadap faktor ambang &alpha;.</figcaption></figure>
+
+<h3>g. Analisis galat</h3>
+<p>Per kanal (lipatan validasi): QRIS menyumbang biaya terbesar (Rp 20,0 juta, terutama 19 fraud lolos senilai Rp 16,2 juta; PR-AUC 0,154), diikuti aplikasi (Rp 9,6 juta), VA (Rp 5,6 juta), kartu (Rp 4,4 juta), dan web (Rp 2,6 juta; PR-AUC tertinggi 0,913). Per nominal: 8 fraud mikro (&le; Rp 25.000) lolos dengan kerugian hanya Rp 162.000, sedangkan sebagian besar kerugian berasal dari transaksi &gt; Rp 1 juta (Rp 13,5 juta dari 9 fraud lolos). Fitur terpenting: target encoding pengguna dan merchant, <code>trx_1j</code>, saldo setelah transaksi, dan skor pengambilalihan akun.</p>
+<p><b>Prediksi uji.</b> Model dilatih ulang pada 367.610 transaksi matang. <code>prediksi_klasifikasi.csv</code>: 106.674 baris, rata-rata probabilitas 0,0085, 3.364 transaksi (3,15%) ditandai.</p>
+
+<h2 class="pb">Task 3 &ndash; Clustering: Segmentasi Pelanggan</h2>
+<p>Tujuan: membagi 120.000 pelanggan (ringkasan 90 hari, 60 kolom) ke segmen yang bermakna dan dapat ditindaklanjuti, serta menandai pelanggan yang tidak cocok dengan segmen mana pun sebagai -1.</p>
+
+<h3>a. Praproses</h3>
+<ul>
+<li><b>Missing:</b> <code>rata2_keranjang</code> kosong 6.736 baris (5,6%), diimputasi median.</li>
+<li><b>Variabel miring:</b> log1p pada 16 kolom dengan |skew| &gt; 1 (misalnya <code>belanja_90h</code> 7,47 dan <code>recency_hari</code> 7,94 &rarr; 0,82).</li>
+<li><b>Data komposisional:</b> porsi 16 kategori dan 4 waktu belanja (jumlahnya 1, divalidasi) ditransformasi dengan centered log-ratio (CLR, &epsilon; = 10<sup>-5</sup>).</li>
+<li><b>Outlier:</b> winsorizing persentil 0,5&ndash;99,5 pada fitur kontinu.</li>
+<li><b>Skala:</b> standardisasi per blok fitur lalu dibagi &radic;(jumlah kolom blok), supaya blok besar (16 kolom kategori) tidak mendominasi jarak.</li>
+</ul>
+
+<h3>b. Seleksi fitur</h3>
+<ul>
+<li><code>belanja_30h</code> dan <code>frekuensi_30h</code> redundan dengan versi 90 hari (Pearson 0,926), dibuang.</li>
+<li>Atribut CRM anonim <code>n01</code>&ndash;<code>n15</code> tidak berbeda antar cluster sementara (ANOVA F 0,26&ndash;1,90, semua p &gt; 0,10) dan menurunkan silhouette pada ablasi, dibuang. <code>kota_tier</code> juga tidak berbeda (F &le; 1,35), dibuang.</li>
+<li>Pembobotan blok menaikkan silhouette k = 5 dari 0,062 ke 0,104.</li>
+<li><b>Koreksi: perangkat.</b> Pada tahap c, perangkat (one-hot) dipakai karena menaikkan silhouette. Pemeriksaan hasil K-Means k = 5 menunjukkan dua cluster berisi 100% iOS dan 100% web, dan profil cluster web hampir sama dengan median semua pelanggan. Nilai 0/1 yang distandardisasi memberi jarak jauh lebih besar daripada variasi perilaku, sehingga kenaikan silhouette itu semu. Perangkat dikeluarkan dari fitur clustering dan hanya dipakai untuk profil. Fitur final: 40 kolom (RFM 5, CLR kategori 16, CLR waktu 4, perilaku 4, aktivitas 9, profil 2).</li>
+</ul>
+
+<h3>c. Perbandingan metode</h3>
+<table>
+<tr><th>Metode</th><th class="n">Tahap c (dengan perangkat, k = 5): silhouette / stabilitas ARI</th><th class="n">Fitur final, k = 6: silhouette / ARI vs K-Means</th></tr>
+<tr><td>K-Means</td><td class="n">0,104 / 0,987</td><td class="n">0,080 / 1,000</td></tr>
+<tr><td>Gaussian Mixture</td><td class="n">0,088 / 0,566</td><td class="n">0,011 / 0,131</td></tr>
+<tr><td>Agglomerative (Ward, 15.000 sampel + NearestCentroid)</td><td class="n">0,090 / 0,979</td><td class="n">0,092 / 0,693</td></tr>
+<tr><td>HDBSCAN</td><td class="n">0,140; 2 cluster, 89% satu cluster</td><td class="n">&ndash;</td></tr>
+</table>
+<p>K-Means dipilih: paling stabil dan cepat, dan strukturnya sejalan dengan Agglomerative. GMM dengan kovarians penuh di 40 dimensi tidak stabil, dan HDBSCAN menggabungkan hampir semua titik menjadi satu cluster.</p>
+
+<h3>d. Jumlah cluster</h3>
+<table>
+<tr><th class="n">k</th><th class="n">Silhouette</th><th class="n">BIC GMM</th><th class="n">Stabilitas ARI</th><th class="n">Cluster terkecil</th></tr>
+<tr><td class="n">3</td><td class="n">0,112</td><td class="n">&minus;74.116</td><td class="n">0,994</td><td class="n">20,0%</td></tr>
+<tr><td class="n">4</td><td class="n">0,101</td><td class="n">&minus;82.990</td><td class="n">0,991</td><td class="n">12,5%</td></tr>
+<tr><td class="n">5</td><td class="n">0,098</td><td class="n">&minus;91.100</td><td class="n">0,852</td><td class="n">10,4%</td></tr>
+<tr class="b"><td class="n">6</td><td class="n">0,080</td><td class="n">&minus;92.319</td><td class="n">0,990</td><td class="n">10,2%</td></tr>
+<tr><td class="n">7</td><td class="n">0,083</td><td class="n">&minus;90.014</td><td class="n">0,989</td><td class="n">5,1%</td></tr>
+<tr><td class="n">8</td><td class="n">0,079</td><td class="n">&minus;88.054</td><td class="n">0,921</td><td class="n">5,1%</td></tr>
+</table>
+<p>Kriteria tidak sepakat: silhouette menyukai k kecil, BIC terendah di k = 6, dan k = 6 stabil (k = 5 tidak). k = 6 dipilih karena didukung BIC dan stabilitas serta menghasilkan segmen yang jelas berbeda. Silhouette yang rendah di semua k menunjukkan segmen saling bersinggungan.</p>
+<figure><img src="../laporan_visual/06_pemilihan_k.png" alt=""><figcaption>Gambar 5. Kriteria pemilihan jumlah cluster (garis merah: k = 6).</figcaption></figure>
+
+<h3>e. Stabilitas</h3>
+<p>K-Means k = 6 diulang pada 20 sampel bootstrap (separuh data, seed berbeda); setiap model memberi label pada semua pelanggan. ARI terhadap model penuh 0,9887 &plusmn; 0,0017 (minimum 0,9845); ARI antar-ulangan 0,9840 (190 pasang). Segmen sangat stabil.</p>
+
+<h3>f. Profil dan aksi</h3>
+<table>
+<tr><th>Segmen (porsi)</th><th>Profil (median)</th><th>Aksi marketing</th></tr>
+<tr><td><b>Pendatang Baru Penjelajah</b> (10%)</td><td>Member 3,5 bulan, 3 pesanan, 9,9 sesi/minggu tetapi konversi 2%</td><td>Onboarding: voucher pembelian kedua dan rekomendasi personal</td></tr>
+<tr><td><b>Pembeli Premium Elektronik</b> (15%)</td><td>Keranjang Rp 577 ribu, belanja Rp 4,2 juta, voucher 16%, elektronik &amp; perabot, usia 40, 62% iOS</td><td>Loyalitas premium: cicilan 0% dan akses awal produk, bukan diskon</td></tr>
+<tr><td><b>Pelanggan Tertidur</b> (18%)</td><td>Recency 53 hari, 1 pesanan, member 27 bulan, COD 47%</td><td>Win-back: pesan &ldquo;kami rindu&rdquo; dan gratis ongkir COD terbatas</td></tr>
+<tr><td><b>Fashionista Paylater</b> (11%)</td><td>Paylater 81%, 2 retur, fashion &amp; gadget, belanja malam, usia 26</td><td>Promo cicilan paylater dan panduan ukuran/try-on untuk menekan retur</td></tr>
+<tr><td><b>Pemburu Promo Muda</b> (23%)</td><td>Voucher 85%, flash sale 71%, keranjang Rp 102 ribu, voucher digital &amp; kecantikan, malam, usia 25</td><td>Flash sale malam dan gamifikasi poin dengan batas subsidi</td></tr>
+<tr><td><b>Keluarga Setia</b> (23%)</td><td>15 pesanan/90 hari, konversi 19%, ibu &amp; bayi dan makanan, belanja pagi, usia 38</td><td>Langganan/pesan ulang otomatis dan bundel kebutuhan rumah tangga</td></tr>
+</table>
+
+<h3>g. Anomali</h3>
+<p>Pelanggan yang jaraknya ke pusat cluster terdekat melebihi persentil ke-99 diberi label -1: 1.200 pelanggan (1,0%). Ambang dibuat ketat supaya pelanggan normal tidak salah diberi label anomali. Profil mereka mencolok: 13,1 sesi per minggu (normal 5,5), 14 klik iklan (normal 5), tetapi konversi 1% (normal 9%), pola yang patut ditinjau sebagai kemungkinan bot atau akun tidak wajar. <code>cluster.csv</code>: 120.000 baris dengan label -1 sampai 5.</p>
+
+<h2>Catatan reproduksi</h2>
+<p class="kecil">Python 3.12, scikit-learn 1.9.1, LightGBM 4.7.0, pandas 3.1.1, numpy 2.5.4; versi lengkap di <code>kode/requirements.txt</code>. Data diekstrak ke <code>data/</code>. Perintah <code>python kode/jalankan.py</code> menjalankan Task 1&ndash;3 dan membuat ulang laporan ini. Penggunaan AI dan pembagian kerja dijelaskan di <code>kontribusi.md</code>.</p>
+
+</body>
+</html>
