@@ -493,5 +493,53 @@
    "pinball90": 4.184541263398891,
    "coverage90": 0.8947497632390198
   }
+ },
+ "ketidakpastian": {
+  "per_lipatan": {
+   "Jan-Apr -> Mei-Jun": {
+    "pinball50": 6.451461751807633,
+    "pinball90": 4.166106855241134,
+    "coverage90": 0.9086467850903638
+   },
+   "Jan-Jun -> Jul-Agu": {
+    "pinball50": 6.674706321122177,
+    "pinball90": 4.202975671556648,
+    "coverage90": 0.8808527413876759
+   }
+  },
+  "coverage_per_bulan": {
+   "Jan-Apr -> Mei-Jun": {
+    "5": 0.904430823651389,
+    "6": 0.9129821260583255
+   },
+   "Jan-Jun -> Jul-Agu": {
+    "7": 0.8750872498836668,
+    "8": 0.8871325392802838
+   }
+  },
+  "quantile_crossing": {
+   "Jan-Apr -> Mei-Jun": 6,
+   "Jan-Jun -> Jul-Agu": 6
+  },
+  "verifikasi_conformal": {
+   "kalibrasi Mei-Jun -> uji Jul-Agu": {
+    "koreksi_log": -0.0151,
+    "faktor_pengali": 0.985,
+    "coverage_sebelum": 0.8809,
+    "coverage_sesudah": 0.8698,
+    "pinball90_sebelum": 4.203,
+    "pinball90_sesudah": 4.2435
+   },
+   "kalibrasi Juli -> uji Agustus": {
+    "koreksi_log": 0.039,
+    "faktor_pengali": 1.0398,
+    "coverage_sebelum": 0.8871,
+    "coverage_sesudah": 0.9101,
+    "pinball90_sebelum": 4.0153,
+    "pinball90_sesudah": 4.0075
+   }
+  },
+  "koreksi_final_log": 0.0303367764750746,
+  "faktor_final": 1.0308016252419963
  }
 }
