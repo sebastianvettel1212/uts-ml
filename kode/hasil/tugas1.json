@@ -1,0 +1,91 @@
+{
+ "tahap0": {
+  "n_train": 250000,
+  "n_test": 60000,
+  "mb_mentah": 165.466501,
+  "mb_opt": 85.006126,
+  "rentang_train": [
+   "2025-01-01",
+   "2025-08-31"
+  ],
+  "rentang_test": [
+   "2025-09-01",
+   "2025-10-31"
+  ],
+  "level_kategori": {
+   "layanan": 4,
+   "mitra_kurir": 12,
+   "hub_asal": 6,
+   "kota_asal": 30,
+   "pulau_tujuan": 7,
+   "kota_tujuan": 405
+  },
+  "level_baru_di_test": {
+   "layanan": [],
+   "mitra_kurir": [
+    "K13"
+   ],
+   "hub_asal": [],
+   "kota_asal": [],
+   "pulau_tujuan": [],
+   "kota_tujuan": []
+  }
+ },
+ "audit": {
+  "target": {
+   "count": 250000.0,
+   "mean": 77.84,
+   "std": 207.66,
+   "min": 11.6,
+   "50%": 61.7,
+   "90%": 117.8,
+   "99%": 224.7,
+   "99.9%": 3054.02,
+   "max": 25452.0
+  },
+  "label_ekstrem": 370,
+  "porsi_kelipatan6_ekstrem": 1.0,
+  "porsi_kelipatan6_normal": 0.016075792172415174,
+  "label_lewat_tarik": 2804,
+  "n_latih_bersih": 247082,
+  "berat_kosong_porsi": 0.055588,
+  "median_durasi_berat_kosong": 71.4000015258789,
+  "median_durasi_berat_terisi": 61.099998474121094,
+  "jarak_0": 703,
+  "jarak_9999": 456,
+  "pergeseran_smd": {
+   "jumlah_scan": -1.449,
+   "f30": 0.574,
+   "f35": 0.262,
+   "f17": 0.2,
+   "antrean_hub_asal": 0.184,
+   "hujan_tujuan_mm": -0.043
+  },
+  "dampak": {
+   "dengan jumlah_scan": {
+    "pinball50": 5.362,
+    "pinball90": 2.947,
+    "coverage90": 0.876
+   },
+   "dengan jumlah_scan, nilai seperti di uji": {
+    "pinball50": 10.94,
+    "pinball90": 13.574,
+    "coverage90": 0.439
+   },
+   "tanpa jumlah_scan": {
+    "pinball50": 6.755,
+    "pinball90": 4.34,
+    "coverage90": 0.874
+   },
+   "tanpa jumlah_scan & f30": {
+    "pinball50": 6.758,
+    "pinball90": 4.337,
+    "coverage90": 0.874
+   }
+  },
+  "fitur_dibuang": [
+   "jumlah_scan",
+   "f30"
+  ]
+ }
+}
