@@ -541,5 +541,318 @@
   },
   "koreksi_final_log": 0.0303367764750746,
   "faktor_final": 1.0308016252419963
+ },
+ "analisis": {
+  "galat_layanan": {
+   "hemat": {
+    "n": 21658.0,
+    "median_durasi": 73.8,
+    "pinball50": 8.544,
+    "pinball90": 4.975,
+    "coverage90": 0.876,
+    "pinball50_relatif": 0.116
+   },
+   "kargo": {
+    "n": 6517.0,
+    "median_durasi": 78.4,
+    "pinball50": 7.564,
+    "pinball90": 4.632,
+    "coverage90": 0.874,
+    "pinball50_relatif": 0.096
+   },
+   "reguler": {
+    "n": 27887.0,
+    "median_durasi": 58.3,
+    "pinball50": 5.864,
+    "pinball90": 3.861,
+    "coverage90": 0.884,
+    "pinball50_relatif": 0.101
+   },
+   "ekspres": {
+    "n": 9890.0,
+    "median_durasi": 39.6,
+    "pinball50": 4.281,
+    "pinball90": 3.195,
+    "coverage90": 0.887,
+    "pinball50_relatif": 0.108
+   }
+  },
+  "galat_pulau": {
+   "Papua": {
+    "n": 1083.0,
+    "median_durasi": 160.5,
+    "pinball50": 20.001,
+    "pinball90": 10.909,
+    "coverage90": 0.88,
+    "pinball50_relatif": 0.125
+   },
+   "Maluku": {
+    "n": 1231.0,
+    "median_durasi": 115.3,
+    "pinball50": 13.982,
+    "pinball90": 7.585,
+    "coverage90": 0.891,
+    "pinball50_relatif": 0.121
+   },
+   "Kalimantan": {
+    "n": 3637.0,
+    "median_durasi": 91.3,
+    "pinball50": 10.887,
+    "pinball90": 6.231,
+    "coverage90": 0.871,
+    "pinball50_relatif": 0.119
+   },
+   "Sulawesi": {
+    "n": 4288.0,
+    "median_durasi": 88.2,
+    "pinball50": 10.305,
+    "pinball90": 5.767,
+    "coverage90": 0.867,
+    "pinball50_relatif": 0.117
+   },
+   "Bali-Nusa Tenggara": {
+    "n": 2560.0,
+    "median_durasi": 66.05,
+    "pinball50": 7.658,
+    "pinball90": 4.467,
+    "coverage90": 0.884,
+    "pinball50_relatif": 0.116
+   },
+   "Sumatera": {
+    "n": 8805.0,
+    "median_durasi": 63.6,
+    "pinball50": 7.214,
+    "pinball90": 4.468,
+    "coverage90": 0.878,
+    "pinball50_relatif": 0.113
+   },
+   "Jawa": {
+    "n": 44348.0,
+    "median_durasi": 56.4,
+    "pinball50": 5.286,
+    "pinball90": 3.56,
+    "coverage90": 0.883,
+    "pinball50_relatif": 0.094
+   }
+  },
+  "galat_kurir": {
+   "K07": {
+    "n": 5188.0,
+    "median_durasi": 77.3,
+    "pinball50": 11.531,
+    "pinball90": 7.389,
+    "coverage90": 0.605,
+    "pinball50_relatif": 0.149
+   },
+   "K02": {
+    "n": 7944.0,
+    "median_durasi": 65.55,
+    "pinball50": 6.655,
+    "pinball90": 4.113,
+    "coverage90": 0.903,
+    "pinball50_relatif": 0.102
+   },
+   "K03": {
+    "n": 7311.0,
+    "median_durasi": 64.3,
+    "pinball50": 6.621,
+    "pinball90": 4.17,
+    "coverage90": 0.903,
+    "pinball50_relatif": 0.103
+   },
+   "K12": {
+    "n": 2710.0,
+    "median_durasi": 62.2,
+    "pinball50": 6.488,
+    "pinball90": 4.029,
+    "coverage90": 0.893,
+    "pinball50_relatif": 0.104
+   },
+   "K10": {
+    "n": 4022.0,
+    "median_durasi": 62.4,
+    "pinball50": 6.468,
+    "pinball90": 3.916,
+    "coverage90": 0.902,
+    "pinball50_relatif": 0.104
+   },
+   "K06": {
+    "n": 5214.0,
+    "median_durasi": 62.2,
+    "pinball50": 6.382,
+    "pinball90": 4.07,
+    "coverage90": 0.905,
+    "pinball50_relatif": 0.103
+   },
+   "K05": {
+    "n": 5957.0,
+    "median_durasi": 62.5,
+    "pinball50": 6.308,
+    "pinball90": 3.849,
+    "coverage90": 0.905,
+    "pinball50_relatif": 0.101
+   },
+   "K04": {
+    "n": 6484.0,
+    "median_durasi": 59.05,
+    "pinball50": 6.176,
+    "pinball90": 3.988,
+    "coverage90": 0.906,
+    "pinball50_relatif": 0.105
+   },
+   "K11": {
+    "n": 3271.0,
+    "median_durasi": 60.6,
+    "pinball50": 6.152,
+    "pinball90": 3.773,
+    "coverage90": 0.904,
+    "pinball50_relatif": 0.102
+   },
+   "K09": {
+    "n": 3941.0,
+    "median_durasi": 58.2,
+    "pinball50": 6.082,
+    "pinball90": 3.965,
+    "coverage90": 0.893,
+    "pinball50_relatif": 0.105
+   },
+   "K01": {
+    "n": 9283.0,
+    "median_durasi": 57.4,
+    "pinball50": 5.925,
+    "pinball90": 3.743,
+    "coverage90": 0.906,
+    "pinball50_relatif": 0.103
+   },
+   "K08": {
+    "n": 4627.0,
+    "median_durasi": 52.0,
+    "pinball50": 5.516,
+    "pinball90": 3.525,
+    "coverage90": 0.919,
+    "pinball50_relatif": 0.106
+   }
+  },
+  "jejak_k07": {
+   "1": {
+    "median_durasi_K07": 58.79999923706055,
+    "median_f35_K07": 0.9850000143051147,
+    "median_f35_kurir_lain": 1.0049999952316284
+   },
+   "2": {
+    "median_durasi_K07": 58.400001525878906,
+    "median_f35_K07": 0.9869999885559082,
+    "median_f35_kurir_lain": 1.00600004196167
+   },
+   "3": {
+    "median_durasi_K07": 66.6500015258789,
+    "median_f35_K07": 0.9850000143051147,
+    "median_f35_kurir_lain": 1.0049999952316284
+   },
+   "4": {
+    "median_durasi_K07": 60.599998474121094,
+    "median_f35_K07": 0.9860000014305115,
+    "median_f35_kurir_lain": 1.0049999952316284
+   },
+   "5": {
+    "median_durasi_K07": 60.29999923706055,
+    "median_f35_K07": 0.9879999756813049,
+    "median_f35_kurir_lain": 1.0049999952316284
+   },
+   "6": {
+    "median_durasi_K07": 58.849998474121094,
+    "median_f35_K07": 0.984000027179718,
+    "median_f35_kurir_lain": 1.00600004196167
+   },
+   "7": {
+    "median_durasi_K07": 78.19999694824219,
+    "median_f35_K07": 1.281999945640564,
+    "median_f35_kurir_lain": 1.0069999694824219
+   },
+   "8": {
+    "median_durasi_K07": 76.19999694824219,
+    "median_f35_K07": 1.277999997138977,
+    "median_f35_kurir_lain": 1.0049999952316284
+   }
+  },
+  "banding_v1_v2": {
+   "v1 | Jan-Apr -> Mei-Jun | semua": {
+    "pinball50": 6.451,
+    "pinball90": 4.166,
+    "coverage90": 0.909
+   },
+   "v1 | Jan-Apr -> Mei-Jun | K07": {
+    "pinball50": 6.336,
+    "pinball90": 4.081,
+    "coverage90": 0.911
+   },
+   "v1 | Jan-Jun -> Jul-Agu | semua": {
+    "pinball50": 6.675,
+    "pinball90": 4.203,
+    "coverage90": 0.881
+   },
+   "v1 | Jan-Jun -> Jul-Agu | K07": {
+    "pinball50": 11.531,
+    "pinball90": 7.389,
+    "coverage90": 0.605
+   },
+   "v2: target / f35 | Jan-Apr -> Mei-Jun | semua": {
+    "pinball50": 6.465,
+    "pinball90": 4.176,
+    "coverage90": 0.908
+   },
+   "v2: target / f35 | Jan-Apr -> Mei-Jun | K07": {
+    "pinball50": 6.315,
+    "pinball90": 4.086,
+    "coverage90": 0.908
+   },
+   "v2: target / f35 | Jan-Jun -> Jul-Agu | semua": {
+    "pinball50": 6.483,
+    "pinball90": 4.03,
+    "coverage90": 0.895
+   },
+   "v2: target / f35 | Jan-Jun -> Jul-Agu | K07": {
+    "pinball50": 8.992,
+    "pinball90": 5.081,
+    "coverage90": 0.792
+   }
+  },
+  "koreksi_final_v2_log": 0.006664439060442895,
+  "faktor_final_v2": 1.0066866958499725,
+  "shap_top15": {
+   "layanan": 11.9655,
+   "jarak_km": 10.3027,
+   "kota_tujuan_te": 6.4079,
+   "f17": 4.3312,
+   "f35": 2.8683,
+   "antrean_hub_asal": 2.7153,
+   "f04": 2.6884,
+   "cod": 1.997,
+   "hub_asal": 1.928,
+   "pulau_tujuan": 1.777,
+   "mitra_kurir": 1.6534,
+   "pengalaman_kurir_bulan": 1.4059,
+   "kota_asal": 1.0738,
+   "f09": 0.9998,
+   "f13": 0.8293
+  }
+ },
+ "final": {
+  "n_latih": 247082,
+  "n_fitur": 73,
+  "param_p50": {
+   "num_leaves": 127,
+   "min_child_samples": 50,
+   "n_estimators": 600
+  },
+  "param_p90": {
+   "num_leaves": 31,
+   "min_child_samples": 300,
+   "n_estimators": 600
+  },
+  "faktor_conformal": 1.0066866958499725,
+  "p50_median": 63.09,
+  "p90_median": 83.88,
+  "p50_median_K13": 67.945
  }
 }
