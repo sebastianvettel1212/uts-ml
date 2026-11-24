@@ -335,5 +335,163 @@
    "min_child_samples": 300,
    "n_estimators": 600
   }
+ },
+ "kategori": {
+  "kardinalitas": {
+   "layanan": 4,
+   "mitra_kurir": 12,
+   "hub_asal": 6,
+   "kota_asal": 30,
+   "pulau_tujuan": 7,
+   "kota_tujuan": 405
+  },
+  "kategori_baru_di_test": {
+   "layanan": [],
+   "mitra_kurir": [
+    "K13"
+   ],
+   "hub_asal": [],
+   "kota_asal": [],
+   "pulau_tujuan": [],
+   "kota_tujuan": []
+  },
+  "n_paket_kurir_baru_test": 2342,
+  "banding_encoding": {
+   "kategori bawaan LightGBM": {
+    "pinball50": 6.625,
+    "pinball90": 4.301,
+    "coverage90": 0.889
+   },
+   "target encoding kota_tujuan": {
+    "pinball50": 6.58,
+    "pinball90": 4.233,
+    "coverage90": 0.892
+   },
+   "tanpa kota_tujuan": {
+    "pinball50": 6.8,
+    "pinball90": 4.311,
+    "coverage90": 0.893
+   }
+  },
+  "simulasi_kurir_baru": [
+   {
+    "kurir": "K02",
+    "skenario": "kurir dikenal (pembanding)",
+    "pinball50": 6.7194805225661485,
+    "pinball90": 4.226441726988868,
+    "coverage90": 0.8884692849949648
+   },
+   {
+    "kurir": "K02",
+    "skenario": "tak dikenal, tanpa penyamaran",
+    "pinball50": 7.2071667074833075,
+    "pinball90": 4.540572953896194,
+    "coverage90": 0.8275427995971802
+   },
+   {
+    "kurir": "K02",
+    "skenario": "tak dikenal, penyamaran 5%",
+    "pinball50": 7.046026848303323,
+    "pinball90": 4.5174813881828975,
+    "coverage90": 0.8363544813695871
+   },
+   {
+    "kurir": "K05",
+    "skenario": "kurir dikenal (pembanding)",
+    "pinball50": 6.366690699325672,
+    "pinball90": 3.966069119632562,
+    "coverage90": 0.8982709417492026
+   },
+   {
+    "kurir": "K05",
+    "skenario": "tak dikenal, tanpa penyamaran",
+    "pinball50": 6.554220450885631,
+    "pinball90": 4.145363880053525,
+    "coverage90": 0.8594930334060769
+   },
+   {
+    "kurir": "K05",
+    "skenario": "tak dikenal, penyamaran 5%",
+    "pinball50": 6.4121761163459,
+    "pinball90": 4.018582875102136,
+    "coverage90": 0.882491186839013
+   },
+   {
+    "kurir": "K08",
+    "skenario": "kurir dikenal (pembanding)",
+    "pinball50": 5.564019054313289,
+    "pinball90": 3.627976787212268,
+    "coverage90": 0.9185217203371515
+   },
+   {
+    "kurir": "K08",
+    "skenario": "tak dikenal, tanpa penyamaran",
+    "pinball50": 6.980619859197805,
+    "pinball90": 3.884410889544465,
+    "coverage90": 0.9539658526042792
+   },
+   {
+    "kurir": "K08",
+    "skenario": "tak dikenal, penyamaran 5%",
+    "pinball50": 7.137780154801062,
+    "pinball90": 4.054026007837677,
+    "coverage90": 0.9615301491247028
+   },
+   {
+    "kurir": "K11",
+    "skenario": "kurir dikenal (pembanding)",
+    "pinball50": 6.273066654824202,
+    "pinball90": 3.8533045230676404,
+    "coverage90": 0.8997248547844696
+   },
+   {
+    "kurir": "K11",
+    "skenario": "tak dikenal, tanpa penyamaran",
+    "pinball50": 6.270380782185662,
+    "pinball90": 3.847223594443671,
+    "coverage90": 0.8975848364414553
+   },
+   {
+    "kurir": "K11",
+    "skenario": "tak dikenal, penyamaran 5%",
+    "pinball50": 6.292386058225995,
+    "pinball90": 3.872558282820068,
+    "coverage90": 0.9098135126872516
+   }
+  ],
+  "simulasi_rata2": {
+   "kurir dikenal (pembanding)": {
+    "pinball50": 6.230814232757328,
+    "pinball90": 3.9184480392253347,
+    "coverage90": 0.9012467004664472
+   },
+   "tak dikenal, penyamaran 5%": {
+    "pinball50": 6.72209229441907,
+    "pinball90": 4.115662138485694,
+    "coverage90": 0.8975473325051386
+   },
+   "tak dikenal, tanpa penyamaran": {
+    "pinball50": 6.753096949938102,
+    "pinball90": 4.104392829484464,
+    "coverage90": 0.8846466305122479
+   }
+  }
+ },
+ "model_final_cv": {
+  "Jan-Apr -> Mei-Jun": {
+   "pinball50": 6.451461751807633,
+   "pinball90": 4.166106855241134,
+   "coverage90": 0.9086467850903638
+  },
+  "Jan-Jun -> Jul-Agu": {
+   "pinball50": 6.674706321122177,
+   "pinball90": 4.202975671556648,
+   "coverage90": 0.8808527413876759
+  },
+  "rata-rata": {
+   "pinball50": 6.563084036464906,
+   "pinball90": 4.184541263398891,
+   "coverage90": 0.8947497632390198
+  }
  }
 }
