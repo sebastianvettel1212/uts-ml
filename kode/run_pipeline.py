@@ -68,7 +68,16 @@ MATURITY_DAYS = 21   # Embargo: buang 21 hari terakhir train karena delay pelapo
 VAL_DAYS = 21        # Panjang OOT validation window
 GAP_DAYS = 3         # Purge gap untuk cegah kebocoran rolling features
 
-SEARCH_DIRS = ["dataset", "../dataset", "./dataset", "data", "../data", "."]
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+REPO_ROOT = os.path.dirname(SCRIPT_DIR) if os.path.basename(SCRIPT_DIR) == "kode" else SCRIPT_DIR
+KODE_DIR = SCRIPT_DIR if os.path.basename(SCRIPT_DIR) == "kode" else os.path.join(REPO_ROOT, "kode")
+
+SEARCH_DIRS = [
+    os.path.join(REPO_ROOT, "dataset"),
+    os.path.join(REPO_ROOT, "Classification", "dataset"),
+    os.path.join(KODE_DIR, "dataset"),
+    "dataset", "../dataset", "./dataset", "data", "../data", ".", ".."
+]
 
 def find_file(name):
     for d in SEARCH_DIRS:
@@ -79,7 +88,7 @@ def find_file(name):
                     return os.path.join(root, name + ext)
     raise FileNotFoundError(f"{name} (.csv/.csv.gz) tidak ditemukan di direktori: {SEARCH_DIRS}")
 
-OUTPUT_DIR = "reports"
+OUTPUT_DIR = os.path.join(KODE_DIR, "reports")
 FIGURES_DIR = os.path.join(OUTPUT_DIR, "figures")
 os.makedirs(FIGURES_DIR, exist_ok=True)
 
@@ -885,7 +894,7 @@ submission_df = pd.DataFrame({
     "tandai": flag_test.astype(int)
 })
 
-sub_root = "prediksi_klasifikasi.csv"
+sub_root = os.path.join(REPO_ROOT, "prediksi_klasifikasi.csv")
 sub_rep = os.path.join(OUTPUT_DIR, "prediksi_klasifikasi.csv")
 submission_df.to_csv(sub_root, index=False)
 submission_df.to_csv(sub_rep, index=False)

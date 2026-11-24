@@ -55,9 +55,26 @@ print("=" * 80)
 print("\n>>> TAHAP 0: AUDIT INTEGRITAS & PEMETAAN KOLOM")
 t0_start = time.perf_counter()
 
-dataset_path = os.path.join('dataset', 'clustering.csv')
-if not os.path.exists(dataset_path):
-    dataset_path = os.path.join('dataset', 'clustering.csv.gz')
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+REPO_ROOT = os.path.dirname(SCRIPT_DIR) if os.path.basename(SCRIPT_DIR) == "kode" else SCRIPT_DIR
+KODE_DIR = SCRIPT_DIR if os.path.basename(SCRIPT_DIR) == "kode" else os.path.join(REPO_ROOT, "kode")
+os.chdir(KODE_DIR)
+
+dataset_candidates = [
+    os.path.join(REPO_ROOT, "dataset", "clustering.csv"),
+    os.path.join(REPO_ROOT, "dataset", "clustering.csv.gz"),
+    os.path.join(REPO_ROOT, "Clustering", "dataset", "clustering.csv"),
+    os.path.join(REPO_ROOT, "Clustering", "dataset", "clustering.csv.gz"),
+    os.path.join(KODE_DIR, "dataset", "clustering.csv"),
+    os.path.join(KODE_DIR, "dataset", "clustering.csv.gz"),
+    "dataset/clustering.csv",
+    "dataset/clustering.csv.gz",
+    "../dataset/clustering.csv",
+    "../dataset/clustering.csv.gz"
+]
+dataset_path = next((p for p in dataset_candidates if os.path.exists(p)), None)
+if not dataset_path:
+    raise FileNotFoundError("clustering.csv/clustering.csv.gz tidak ditemukan!")
 
 df_raw = pd.read_csv(dataset_path)
 n_rows, n_cols = df_raw.shape

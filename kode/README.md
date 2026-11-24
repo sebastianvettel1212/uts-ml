@@ -1,14 +1,14 @@
-# Dokumentasi Kode & Panduan Reproduksi 12 Tahap Operasional: Deteksi Penipuan Transaksi (*Fraud Detection*)
-**UTS Machine Learning - Task 2 (Classification)**  
-**Blueprint Acuan:** `blueprint_12_tahap_fraud_detection_task_2_uts.md`
+# Dokumentasi Kode & Panduan Reproduksi (Submission Reproduction Guide)
+**UTS Machine Learning — Task 2 (Classification) & Task 3 (Clustering)**  
+**Repositori:** `https://github.com/sebastianvettel1212/uts-ml` (Fork dari `xcoook1es/uts-ml`)  
 
-Dokumen ini menjelaskan struktur repositori, dependensi lingkungan, dan instruksi menjalankan seluruh pipeline analitik deteksi penipuan secara identik dalam satu perintah (*one-command reproducibility*).
+Dokumen ini menjelaskan struktur direktori `kode/`, persyaratan lingkungan komputasi, parameter kunci (`SEED = 42`), serta instruksi satu perintah (*one-command execution*) untuk mereproduksi seluruh angka pada laporan dan menghasilkan file submisi `prediksi_klasifikasi.csv`.
 
 ---
 
 ## 1. Persyaratan Lingkungan (*Environment Requirements*)
 
-Pipeline ini dibangun dan diuji menggunakan:
+Pipeline ini dibangun dan divalidasi menggunakan spesifikasi pustaka standar Python:
 * **Python**: Versi 3.12+ (atau 3.14)
 * **Pustaka Utama**:
   * `numpy` (>= 1.26.0)
@@ -20,84 +20,108 @@ Pipeline ini dibangun dan diuji menggunakan:
   * `catboost` (>= 1.2.0)
   * `matplotlib` (>= 3.8.0)
 
-Semua dependensi sudah terpasang di dalam lingkungan virtual `.venv`.
+Semua dependensi sudah terkonfigurasi di dalam virtual environment `.venv`.
 
 ---
 
-## 2. Struktur Direktori Proyek
+## 2. Parameter Acuan & Penguncian Random Seed
+
+* **Random Seed**: `SEED = 42` terkunci secara deterministik di seluruh modul (`numpy.random.seed(42)`, `random.seed(42)`, dan parameter `random_state=42` pada LightGBM, XGBoost, CatBoost, Scikit-Learn).
+* **Tanpa Deep Learning**: Seluruh pemodelan mematuhi regulasi tugas tanpa menggunakan library deep learning (TensorFlow, PyTorch, Keras).
+
+---
+
+## 3. Struktur Direktori `kode/`
 
 ```text
-d:\UTS_ML_Klassifikasi\
-├── blueprint_12_tahap_fraud_detection_task_2_uts.md # Blueprint kerja 12 tahap operasional
-├── prediksi_klasifikasi.csv          # File submisi utama (106.674 baris)
-├── dataset\
-│   ├── klasifikasi_train.csv         # Data latih (Jan - Agu 2025, 403.077 baris)
-│   ├── klasifikasi_test.csv          # Data uji (Sep - Okt 2025, 106.674 baris)
-│   └── README.md
-├── docs\
-│   └── kamus_data.md                 # Definisi atribut & matriks biaya bisnis
-├── kode\
-│   ├── run_pipeline.py               # Skrip eksekusi end-to-end 12 tahap operasional
-│   ├── task2_fraud_detection.ipynb   # Jupyter Notebook interaktif (Hipotesis, Kode, Interpretasi)
-│   └── README.md                     # Panduan eksekusi ini
-└── reports\
-    ├── laporan_task2_fraud_detection.md # Laporan analitik lengkap 12 tahap (Soal 2a s.d. 2g)
-    ├── summary_metrics.json          # Rekap metrik kuantitatif terstruktur 12 tahap
-    ├── prediksi_klasifikasi.csv      # Salinan file submisi
-    └── figures\                      # 7 visualisasi grafik resolusi tinggi (300 DPI)
-        ├── fig_1_label_maturity.png
-        ├── fig_2_leakage_comparison.png
-        ├── fig_3_imbalance_models.png
-        ├── fig_4_calibration_curves.png
-        ├── fig_5_total_cost_alpha.png
-        ├── fig_6_feature_importance.png
-        └── fig_7_error_analysis.png
+kode/
+├── README.md                           # Dokumentasi panduan reproduksi ini
+├── task2_fraud_detection.ipynb         # Jupyter Notebook lengkap Task 2 (12 tahap analisis, markdown penjelasan, grafik inline)
+├── run_pipeline.py                     # Skrip otomasi pipeline end-to-end 12 tahap Task 2
+├── generate_all_12_figures.py          # Generator 12 grafik publikasi Task 2 (300 DPI)
+├── task_3_clustering_tahap_0_tahap_c.ipynb # Jupyter Notebook lengkap Task 3 (Tahap 0 s.d. Tahap c dengan output terekam)
+├── jalankan_tahap_0_c.py               # Skrip otomasi end-to-end Task 3
+├── build_notebook.py                   # Skrip perakit notebook Task 3
+├── execute_notebook_inprocess.py       # Eksekutor notebook in-process Task 3
+├── hasil/                              # Output data metrik & tabel keputusan Task 3
+│   ├── tabel_keputusan_fitur.csv       # Tabel evaluasi seleksi fitur multivariat
+│   └── tugas3.json                     # Rekapitulasi metrik terkunci seed 42 Task 3
+├── laporan_visual/                     # 5 Visualisasi grafik publikasi Task 3 (300 DPI)
+│   ├── 01_audit_missing_skewness_log1p.png
+│   ├── 02_korelasi_redundansi_30h_vs_90h.png
+│   ├── 03_anova_f_stat_seleksi_fitur.png
+│   ├── 04_eksperimen_ablasi_silhouette_stabilitas.png
+│   └── 05_komparasi_metode_clustering.png
+└── reports/                            # Artefak pelaporan Task 2
+    ├── figures/                        # 12 Visualisasi grafik publikasi Task 2 (300 DPI)
+    │   ├── fig_0_eda_distribution.png
+    │   ├── fig_1_label_maturity.png
+    │   ├── fig_2_leakage_comparison.png
+    │   ├── fig_3_validation_timeline.png
+    │   ├── fig_4_model_comparison.png
+    │   ├── fig_5_imbalance_models.png
+    │   ├── fig_6_adaptation_strategy.png
+    │   ├── fig_7_calibration_curves.png
+    │   ├── fig_8_total_cost_alpha.png
+    │   ├── fig_9_error_analysis.png
+    │   ├── fig_10_feature_importance.png
+    │   └── fig_11_test_probability_dist.png
+    ├── summary_metrics.json            # Rekap metrik kuantitatif terstruktur 12 tahap
+    └── laporan_task2_fraud_detection.md # Naskah draf akademik Task 2
 ```
 
 ---
 
-## 3. Cara Menjalankan Pipeline (*One-Command Execution*)
+## 4. Perintah Terminal untuk Reproduksi (*One-Command Execution*)
 
-Untuk menjalankan seluruh 12 tahap operasional, meregenerasi seluruh grafik, metrik evaluasi, serta file submisi `prediksi_klasifikasi.csv`, jalankan perintah berikut dari direktori root:
+### A. Mereproduksi Task 2 (Deteksi Fraud Transaksi) & Menghasilkan `prediksi_klasifikasi.csv`
 
-### Menggunakan Python Virtual Environment:
+Dari direktori root repositori, jalankan:
+```bash
+python kode/run_pipeline.py
+```
+*Atau jika menggunakan Windows PowerShell dengan virtual environment:*
 ```powershell
-.\.venv\Scripts\python.exe kode\run_pipeline.py
+.\.venv\Scripts\python.exe kodeun_pipeline.py
 ```
 
-### Atau Aktifkan Virtual Environment Terlebih Dahulu:
+**Hasil yang Dihasilkan Otomatis:**
+1. File submisi resmi `prediksi_klasifikasi.csv` di direktori root (106.674 baris, format `id_transaksi,prob,tandai`).
+2. File metrik kuantitatif `kode/reports/summary_metrics.json`.
+3. Seluruh visualisasi grafik 300 DPI di `kode/reports/figures/`.
+
+*Opsional (Membuat ulang 12 grafik resolusi tinggi saja):*
+```bash
+python kode/generate_all_12_figures.py
+```
+
+---
+
+### B. Mereproduksi Task 3 (Segmentasi Pelanggan E-Commerce)
+
+Dari direktori root repositori, jalankan:
+```bash
+python kode/jalankan_tahap_0_c.py
+```
+*Atau jika menggunakan Windows PowerShell dengan virtual environment:*
 ```powershell
-.\.venv\Scripts\activate
-python kode\run_pipeline.py
+.\.venv\Scripts\python.exe kode\jalankan_tahap_0_c.py
 ```
 
-Waktu eksekusi total berkisar antara **3 hingga 5 menit** tergantung spesifikasi CPU, karena seluruh model telah dioptimasi dengan algoritma berbasis histogram (`hist`) dan *early stopping*.
+**Hasil yang Dihasilkan Otomatis:**
+1. Rekapitulasi metrik `kode/hasil/tugas3.json`.
+2. Tabel keputusan seleksi fitur `kode/hasil/tabel_keputusan_fitur.csv`.
+3. Seluruh visualisasi grafik 300 DPI di `kode/laporan_visual/`.
 
 ---
 
-## 4. Alur 12 Tahap Operasional yang Dijalankan
+## 5. Ringkasan Kepatuhan Spesifikasi Submisi
 
-1. **Tahap 1**: Persiapan lingkungan, penguncian `SEED = 42`, pencatatan versi pustaka, verifikasi skema `kamus_data.md`, dan audit 0 duplikasi ID transaksi.
-2. **Tahap 2**: Eksplorasi data awal (EDA) dan konfirmasi rasio kerugian rata-rata penipuan Rp 1.209.456 vs biaya review Rp 25.000 (48,4x lipat).
-3. **Tahap 3**: Audit kematangan label (*right-censoring*, embargo 21 hari) dan bukti kebocoran `flag_review_manual` (penurunan PR-AUC 0,1099 saat dibuang).
-4. **Tahap 4**: Desain skema validasi berbasis waktu (*Out-of-Time split* Juli–Agustus 2025) dengan *purge gap* 3 hari. Baseline cost validasi: Rp 250.166.288.
-5. **Tahap 5**: Rekayasa 114 fitur perilaku (*velocity*, deviasi nominal, *wallet drain*, ATO, dan *causal expanding target encoding*).
-6. **Tahap 6**: Seleksi fitur, pra-pemrosesan bebas leakage, dan pembandingan model baseline (XGBoost terbaik: PR-AUC 0,5841).
-7. **Tahap 7**: Eksperimen penanganan class imbalance (*Class Weighting* vs *Undersampling* vs *Distribusi Alami*).
-8. **Tahap 8**: Analisis *pattern shift* (eliminasi fitur drift `v15` dengan KS 0,5055) dan evaluasi adaptasi *expanding* vs *sliding* vs *time-decay weighting*.
-9. **Tahap 9**: Kalibrasi probabilitas (*Isotonic Regression*) dan optimasi simplex ensemble (80% XGBoost + 20% CatBoost: PR-AUC 0,6040, Log-Loss 0,01490).
-10. **Tahap 10**: Optimasi keputusan biaya Rp 25.000 dengan guardrail $N_i \le 25.000$. Pada $\alpha = 0,5$, total biaya terpangkas menjadi Rp 42.182.400 (**Hemat Rp 207.983.888 / 83,14%**).
-11. **Tahap 11**: Analisis kesalahan (*error analysis*) per kanal pembayaran, kategori merchant, dan skala nominal, serta analisis *feature importance*.
-12. **Tahap 12**: Pelatihan ulang ensemble final pada seluruh 367.610 data matang, generasi file `prediksi_klasifikasi.csv` (106.674 baris), dan verifikasi 4 audit sanitasi.
-
----
-
-## 5. Verifikasi Integritas File Submisi
-
-File `prediksi_klasifikasi.csv` memenuhi 100% spesifikasi UTS:
-* Header persis: `id_transaksi,prob,tandai`
-* Jumlah baris: 106.674 data uji + 1 baris header.
-* Tipe data: `prob` $\in [0, 1]$ (float), `tandai` $\in \{0, 1\}$ (integer).
-* Tidak mengandung nilai `NaN`, `null`, maupun `inf`.
-* 100% patuh batasan ekonomi mutlak: 0 transaksi dengan nominal $\le \text{Rp } 25.000$ ditandai.
-* *Flag rate* pada data uji: **3,1535%** (3.364 transaksi), sangat konsisten dengan data validasi.
+1. **`prediksi_klasifikasi.csv` di Root**:
+   * Jumlah baris: 106.674 data uji + 1 baris header.
+   * Kolom: `id_transaksi,prob,tandai` (nilai `prob` float terkalibrasi, `tandai` integer biner {0, 1}).
+   * Kepatuhan guardrail ekonomi: 100% patuh ($N_i \le 	ext{Rp } 25.000 \implies 	ext{tandai} = 0$).
+   * Kualitas data: 0 nilai `NaN`, `null`, maupun `inf`.
+2. **Ketiadaan Kebocoran Data (*No Data Leakage*)**:
+   * Variabel `flag_review_manual` dieliminasi total dari data latih dan uji.
+   * Skema validasi berbasis waktu (*Out-of-Time split*) dengan *purge gap* 3 hari dan *embargo* 21 hari (mengatasi *right-censoring* pelaporan fraud).

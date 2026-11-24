@@ -1,25 +1,28 @@
-# UTS Machine Learning — Tugas Kelompok
+# UTS Machine Learning — Kelompok
 
-Repositori pengerjaan Ujian Tengah Semester (UTS) mata kuliah Machine Learning.
+Repositori pengerjaan Ujian Tengah Semester (UTS) mata kuliah Machine Learning.  
+Repositori ini merupakan fork dari `https://github.com/xcoook1es/uts-ml`.
 
-## Struktur Repositori
+## Komponen Submisi Resmi (Submission Components)
 
-Proyek ini terbagi menjadi 3 modul tugas utama:
+Sesuai aturan pengumpulan tugas UTS Machine Learning, struktur utama repositori tersusun sebagai berikut:
 
-* **`Regression/`** — Tugas 1: Prediksi Durasi Pengiriman Paket
-* **`Classification/`** — Tugas 2: Deteksi Transaksi Fraud
-  * `prediksi_klasifikasi.csv`: File hasil prediksi submisi resmi (106.674 baris, format `id_transaksi,prob,tandai`)
-  * `blueprint_12_tahap_fraud_detection_task_2_uts.md`: Cetak biru operasional 12 tahap klasifikasi
-  * `kode/task2_fraud_detection.ipynb`: Notebook Jupyter interaktif 12 tahap analisis & evaluasi
-  * `kode/run_pipeline.py`: Skrip otomasi pipeline klasifikasi end-to-end
-  * `kode/generate_all_12_figures.py`: Skrip generator visualisasi resolusi tinggi (300 DPI)
-  * `dataset/`: Dataset transaksi (`klasifikasi_train.csv.gz`, `klasifikasi_test.csv`)
-  * `docs/`: Kamus data dan deskripsi fitur (`kamus_data.md`)
-  * `reports/`: Laporan akademik komprehensif (`laporan_task2_fraud_detection.md`), metrik kuantitatif (`summary_metrics.json`), dan 12 gambar visualisasi (`figures/`)
-* **`Clustering/`** — Tugas 3: Segmentasi Pelanggan E-Commerce
-  * `task_3_clustering_tahap_0_tahap_c.ipynb`: Notebook Jupyter utama (Tahap 0 s.d. Tahap c)
-  * `dataset/`: Dataset ringkasan aktivitas 90 hari (`clustering.csv`) dan kamus data
-  * `hasil/`: Rekapitulasi metrik seed 42 (`tugas3.json`) dan tabel keputusan seleksi fitur
-  * `kode/`: Skrip Python eksekusi end-to-end reproduksibilitas
-  * `laporan_visual/`: Visualisasi grafik 300 DPI untuk `laporan.pdf`
-  * `alur_pikir_dan_panduan_lisan_clustering.md`: Catatan alur pikir dan panduan ujian lisan
+1. **`laporan.pdf`** *(Draft/Final)* — Dokumen laporan komprehensif gabungan Task 1 (Regresi), Task 2 (Klasifikasi), dan Task 3 (Klastering).
+2. **`prediksi_klasifikasi.csv`** — File hasil prediksi resmi Task 2 Deteksi Fraud Transaksi (106.674 baris, format `id_transaksi,prob,tandai`).
+3. **`kontribusi.md`** — Matriks pembagian peran anggota kelompok, tautan Pull Request (PR), dan deklarasi penggunaan alat AI beserta metodologi verifikasinya.
+4. **`kode/`** — Seluruh kode program, notebook interaktif, rekapitulasi metrik, dan skrip otomasi yang mereproduksi seluruh angka laporan dan file prediksi secara deterministik (`SEED = 42`).
+   * Panduan eksekusi dan dependensi lingkungan terdapat pada [`kode/README.md`](kode/README.md).
+
+---
+
+## Ringkasan Perintah Reproduksi Cepat
+
+Untuk menjalankan seluruh pipeline dan mereproduksi file submisi dari direktori root:
+
+```bash
+# Task 2: Deteksi Fraud Transaksi (menghasilkan prediksi_klasifikasi.csv di root)
+python kode/run_pipeline.py
+
+# Task 3: Segmentasi Pelanggan E-Commerce (menghasilkan tugas3.json di kode/hasil/)
+python kode/jalankan_tahap_0_c.py
+```

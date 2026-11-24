@@ -87,4 +87,8 @@ def run_notebook_inprocess(input_path, output_path):
     print(f"Selesai! Notebook tersimpan lengkap dengan seluruh output di '{output_path}'.")
 
 if __name__ == '__main__':
-    run_notebook_inprocess('task_3_clustering_tahap_0_tahap_c.ipynb', 'task_3_clustering_tahap_0_tahap_c.ipynb')
+    nb_name = 'task_3_clustering_tahap_0_tahap_c.ipynb'
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    nb_path = os.path.join(base_dir, nb_name) if os.path.exists(os.path.join(base_dir, nb_name)) else nb_name
+    os.chdir(base_dir)
+    run_notebook_inprocess(nb_path, nb_path)

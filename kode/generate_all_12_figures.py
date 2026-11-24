@@ -18,14 +18,53 @@ plt.rcParams['xtick.labelsize'] = 8.5
 plt.rcParams['ytick.labelsize'] = 8.5
 plt.rcParams['legend.fontsize'] = 8.5
 
-OUTPUT_DIR = "reports/figures"
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+REPO_ROOT = os.path.dirname(SCRIPT_DIR) if os.path.basename(SCRIPT_DIR) == "kode" else SCRIPT_DIR
+KODE_DIR = SCRIPT_DIR if os.path.basename(SCRIPT_DIR) == "kode" else os.path.join(REPO_ROOT, "kode")
+
+OUTPUT_DIR = os.path.join(KODE_DIR, "reports", "figures")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-with open("reports/summary_metrics.json", "r", encoding="utf-8") as f:
+metrics_candidates = [
+    os.path.join(KODE_DIR, "reports", "summary_metrics.json"),
+    os.path.join(REPO_ROOT, "reports", "summary_metrics.json"),
+    os.path.join(REPO_ROOT, "Classification", "reports", "summary_metrics.json"),
+    "reports/summary_metrics.json"
+]
+metrics_path = next((p for p in metrics_candidates if os.path.exists(p)), None)
+if not metrics_path:
+    raise FileNotFoundError("summary_metrics.json tidak ditemukan di direktori reports!")
+with open(metrics_path, "r", encoding="utf-8") as f:
     metrics = json.load(f)
 
-train = pd.read_csv("dataset/klasifikasi_train.csv", parse_dates=["waktu"])
-test_sub = pd.read_csv("prediksi_klasifikasi.csv")
+train_candidates = [
+    os.path.join(REPO_ROOT, "dataset", "klasifikasi_train.csv"),
+    os.path.join(REPO_ROOT, "dataset", "klasifikasi_train.csv.gz"),
+    os.path.join(REPO_ROOT, "Classification", "dataset", "klasifikasi_train.csv"),
+    os.path.join(REPO_ROOT, "Classification", "dataset", "klasifikasi_train.csv.gz"),
+    os.path.join(KODE_DIR, "dataset", "klasifikasi_train.csv"),
+    os.path.join(KODE_DIR, "dataset", "klasifikasi_train.csv.gz"),
+    "dataset/klasifikasi_train.csv",
+    "dataset/klasifikasi_train.csv.gz",
+    "../dataset/klasifikasi_train.csv",
+    "../dataset/klasifikasi_train.csv.gz"
+]
+train_path = next((p for p in train_candidates if os.path.exists(p)), None)
+if not train_path:
+    raise FileNotFoundError("klasifikasi_train (.csv/.csv.gz) tidak ditemukan!")
+train = pd.read_csv(train_path, parse_dates=["waktu"])
+
+pred_candidates = [
+    os.path.join(REPO_ROOT, "prediksi_klasifikasi.csv"),
+    os.path.join(KODE_DIR, "prediksi_klasifikasi.csv"),
+    os.path.join(KODE_DIR, "reports", "prediksi_klasifikasi.csv"),
+    "prediksi_klasifikasi.csv",
+    "../prediksi_klasifikasi.csv"
+]
+pred_path = next((p for p in pred_candidates if os.path.exists(p)), None)
+if not pred_path:
+    raise FileNotFoundError("prediksi_klasifikasi.csv tidak ditemukan!")
+test_sub = pd.read_csv(pred_path)
 
 TARGET = "is_fraud"
 TIME = "waktu"
