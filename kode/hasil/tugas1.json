@@ -167,5 +167,173 @@
     "coverage90": 0.876
    }
   }
+ },
+ "model": {
+  "banding": {
+   "Baseline: kuantil per layanan x pulau": {
+    "pinball50": 10.12,
+    "pinball90": 6.212,
+    "coverage90": 0.9
+   },
+   "Ridge pada log(durasi)": {
+    "pinball50": 7.345,
+    "pinball90": 4.466,
+    "coverage90": 0.909
+   },
+   "LightGBM kuantil (default)": {
+    "pinball50": 6.625,
+    "pinball90": 4.301,
+    "coverage90": 0.889
+   },
+   "LightGBM kuantil (dituning)": {
+    "pinball50": 6.596,
+    "pinball90": 4.271,
+    "coverage90": 0.89
+   }
+  },
+  "per_lipatan": {
+   "Baseline: kuantil per layanan x pulau": {
+    "Jan-Apr -> Mei-Jun": {
+     "pinball50": 9.969714253108325,
+     "pinball90": 6.150018136319188,
+     "coverage90": 0.9083530448494967
+    },
+    "Jan-Jun -> Jul-Agu": {
+     "pinball50": 10.270610816397173,
+     "pinball90": 6.274145979445747,
+     "coverage90": 0.8924369238233867
+    }
+   },
+   "Ridge pada log(durasi)": {
+    "Jan-Apr -> Mei-Jun": {
+     "pinball50": 7.212736880545585,
+     "pinball90": 4.452049693806128,
+     "coverage90": 0.9218032558786698
+    },
+    "Jan-Jun -> Jul-Agu": {
+     "pinball50": 7.477635166275363,
+     "pinball90": 4.479840744656891,
+     "coverage90": 0.8971524745269287
+    }
+   },
+   "LightGBM kuantil (default)": {
+    "Jan-Apr -> Mei-Jun": {
+     "pinball50": 6.506913767130221,
+     "pinball90": 4.273706371337419,
+     "coverage90": 0.902864740349087
+    },
+    "Jan-Jun -> Jul-Agu": {
+     "pinball50": 6.742817434522152,
+     "pinball90": 4.327563896768579,
+     "coverage90": 0.8755761766132946
+    }
+   },
+   "LightGBM kuantil (dituning)": {
+    "Jan-Apr -> Mei-Jun": {
+     "pinball50": 6.4858156347034015,
+     "pinball90": 4.234818997169073,
+     "coverage90": 0.9052301222887003
+    },
+    "Jan-Jun -> Jul-Agu": {
+     "pinball50": 6.7059224614083455,
+     "pinball90": 4.307364471627081,
+     "coverage90": 0.8745754488112567
+    }
+   }
+  },
+  "ridge_alpha": {
+   "1.0": {
+    "pinball50": 7.3451860234104736,
+    "pinball90": 4.465945219231509,
+    "coverage90": 0.9094778652027993
+   },
+   "10.0": {
+    "pinball50": 7.3469783437189555,
+    "pinball90": 4.467164554332637,
+    "coverage90": 0.9094995678707046
+   },
+   "100.0": {
+    "pinball50": 7.40120661428087,
+    "pinball90": 4.4934646086728325,
+    "coverage90": 0.9098805649885262
+   }
+  },
+  "ridge_alpha_terbaik": 1.0,
+  "tuning_lgb": [
+   {
+    "num_leaves": 31,
+    "min_child_samples": 50,
+    "n_estimators": 300,
+    "pinball50": 6.644881395063608,
+    "pinball90": 4.27161853103587,
+    "coverage90": 0.894830632945071
+   },
+   {
+    "num_leaves": 31,
+    "min_child_samples": 50,
+    "n_estimators": 600,
+    "pinball50": 6.612894890670956,
+    "pinball90": 4.27302369825524,
+    "coverage90": 0.8905335184129763
+   },
+   {
+    "num_leaves": 31,
+    "min_child_samples": 300,
+    "n_estimators": 300,
+    "pinball50": 6.641416873758702,
+    "pinball90": 4.272434680642926,
+    "coverage90": 0.8950099104419693
+   },
+   {
+    "num_leaves": 31,
+    "min_child_samples": 300,
+    "n_estimators": 600,
+    "pinball50": 6.607099732300453,
+    "pinball90": 4.271091734398077,
+    "coverage90": 0.8899027855499785
+   },
+   {
+    "num_leaves": 127,
+    "min_child_samples": 50,
+    "n_estimators": 300,
+    "pinball50": 6.6115695319720915,
+    "pinball90": 4.324340114735777,
+    "coverage90": 0.8831964375371268
+   },
+   {
+    "num_leaves": 127,
+    "min_child_samples": 50,
+    "n_estimators": 600,
+    "pinball50": 6.5958690480558735,
+    "pinball90": 4.352722225535728,
+    "coverage90": 0.8708469338406648
+   },
+   {
+    "num_leaves": 127,
+    "min_child_samples": 300,
+    "n_estimators": 300,
+    "pinball50": 6.6128854245572235,
+    "pinball90": 4.303125564306772,
+    "coverage90": 0.8843379457589169
+   },
+   {
+    "num_leaves": 127,
+    "min_child_samples": 300,
+    "n_estimators": 600,
+    "pinball50": 6.601413438726382,
+    "pinball90": 4.3246264026708525,
+    "coverage90": 0.8760211045122511
+   }
+  ],
+  "param_p50": {
+   "num_leaves": 127,
+   "min_child_samples": 50,
+   "n_estimators": 600
+  },
+  "param_p90": {
+   "num_leaves": 31,
+   "min_child_samples": 300,
+   "n_estimators": 600
+  }
  }
 }
