@@ -1,28 +1,24 @@
-# UTS Machine Learning — Kelompok
+# UTS Machine Learning: Regresi, Klasifikasi, dan Clustering
 
-Repositori pengerjaan Ujian Tengah Semester (UTS) mata kuliah Machine Learning.  
-Repositori ini merupakan fork dari `https://github.com/xcoook1es/uts-ml`.
+Tugas kelompok UTS Machine Learning. Anggota: Zidan Alghifari (101032330177) dan Zacky Yusuf Hakim (101032300183).
 
-## Komponen Submisi Resmi (Submission Components)
+## Isi branch `main`
 
-Sesuai aturan pengumpulan tugas UTS Machine Learning, struktur utama repositori tersusun sebagai berikut:
+| Item | Keterangan |
+|---|---|
+| `laporan.pdf` | Laporan Task 1–3 |
+| `kode/` | Semua kode, dengan panduan di [`kode/README.md`](kode/README.md) |
+| `prediksi_regresi.csv` | Task 1: `id_paket,p50,p90` (60.000 baris, p90 ≥ p50) |
+| `prediksi_klasifikasi.csv` | Task 2: `id_transaksi,prob,tandai` (106.674 baris) |
+| `cluster.csv` | Task 3: `id_pelanggan,cluster` (120.000 baris, -1 = anomali) |
+| `kontribusi.md` | Peran anggota, tautan pull request, dan penggunaan AI |
 
-1. **`laporan.pdf`** *(Draft/Final)* — Dokumen laporan komprehensif gabungan Task 1 (Regresi), Task 2 (Klasifikasi), dan Task 3 (Klastering).
-2. **`prediksi_klasifikasi.csv`** — File hasil prediksi resmi Task 2 Deteksi Fraud Transaksi (106.674 baris, format `id_transaksi,prob,tandai`).
-3. **`kontribusi.md`** — Matriks pembagian peran anggota kelompok, tautan Pull Request (PR), dan deklarasi penggunaan alat AI beserta metodologi verifikasinya.
-4. **`kode/`** — Seluruh kode program, notebook interaktif, rekapitulasi metrik, dan skrip otomasi yang mereproduksi seluruh angka laporan dan file prediksi secara deterministik (`SEED = 42`).
-   * Panduan eksekusi dan dependensi lingkungan terdapat pada [`kode/README.md`](kode/README.md).
+## Satu perintah
 
----
-
-## Ringkasan Perintah Reproduksi Cepat
-
-Untuk menjalankan seluruh pipeline dan mereproduksi file submisi dari direktori root:
+Dari akar repositori, setelah data diekstrak ke `data/` dan pustaka dipasang (lihat `kode/README.md`):
 
 ```bash
-# Task 2: Deteksi Fraud Transaksi (menghasilkan prediksi_klasifikasi.csv di root)
-python kode/run_pipeline.py
-
-# Task 3: Segmentasi Pelanggan E-Commerce (menghasilkan tugas3.json di kode/hasil/)
-python kode/jalankan_tahap_0_c.py
+python kode/jalankan.py
 ```
+
+Perintah ini menjalankan ketiga task secara berurutan, menulis ulang ketiga file prediksi, semua angka di `kode/hasil/` dan `kode/reports/`, lalu membuat ulang `laporan.pdf`.
