@@ -87,5 +87,85 @@
    "jumlah_scan",
    "f30"
   ]
+ },
+ "validasi": {
+  "lipatan_waktu": {
+   "Jan-Apr -> Mei-Jun": {
+    "latih": [
+     "2025-01-01",
+     "2025-05-01"
+    ],
+    "valid": [
+     "2025-05-01",
+     "2025-07-01"
+    ]
+   },
+   "Jan-Jun -> Jul-Agu": {
+    "latih": [
+     "2025-01-01",
+     "2025-07-01"
+    ],
+    "valid": [
+     "2025-07-01",
+     "2025-09-01"
+    ]
+   }
+  },
+  "per_lipatan_waktu": {
+   "Jan-Apr -> Mei-Jun": {
+    "pinball50": 6.506913767130221,
+    "pinball90": 4.273706371337419,
+    "coverage90": 0.902864740349087
+   },
+   "Jan-Jun -> Jul-Agu": {
+    "pinball50": 6.742817434522152,
+    "pinball90": 4.327563896768579,
+    "coverage90": 0.8755761766132946
+   }
+  },
+  "cv_acak_per_fold": [
+   {
+    "pinball50": 6.622436770552407,
+    "pinball90": 4.276272691590468,
+    "coverage90": 0.8831980897262076
+   },
+   {
+    "pinball50": 6.57943201573861,
+    "pinball90": 4.278151314635136,
+    "coverage90": 0.884189651334561
+   },
+   {
+    "pinball50": 6.669505848602831,
+    "pinball90": 4.314620521402438,
+    "coverage90": 0.883135016998543
+   },
+   {
+    "pinball50": 6.675320309455699,
+    "pinball90": 4.320317040589525,
+    "coverage90": 0.88143516270034
+   },
+   {
+    "pinball50": 6.6475388270855476,
+    "pinball90": 4.319439606006794,
+    "coverage90": 0.883337380605472
+   }
+  ],
+  "banding": {
+   "CV acak (5-fold)": {
+    "pinball50": 6.639,
+    "pinball90": 4.302,
+    "coverage90": 0.883
+   },
+   "CV waktu (rata-rata 2 lipatan)": {
+    "pinball50": 6.625,
+    "pinball90": 4.301,
+    "coverage90": 0.889
+   },
+   "lipatan terakhir: Jul-Agu": {
+    "pinball50": 6.743,
+    "pinball90": 4.328,
+    "coverage90": 0.876
+   }
+  }
  }
 }
