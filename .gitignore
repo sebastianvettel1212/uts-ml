@@ -1,5 +1,34 @@
+# Dataset (Jangan diunggah ke Git sesuai aturan submisi)
+dataset/
+*/dataset/
 data/
+*.csv.gz
+*.csv.raw
+
+# Virtual Environments
 .venv/
-kode/hasil/cache/
-.ipynb_checkpoints/
+venv/
+ENV/
+env/
+
+# Python Cache & Bytecode
 __pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+build/
+dist/
+
+# Jupyter Notebook Checkpoints
+.ipynb_checkpoints/
+
+# Model Training Logs & Temp Files
+catboost_info/
+*.log
+kode/hasil/cache/
+
+# OS Specific Files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
