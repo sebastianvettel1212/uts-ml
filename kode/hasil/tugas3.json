@@ -523,5 +523,178 @@
     },
     "kesimpulan_dan_rekomendasi": "K-Means merupakan metode terbaik yang paling seimbang, efisien (2.46 detik untuk 120.000 data), memiliki kohesi tertinggi (Silhouette = 0.1041), stabilitas inisialisasi hampir sempurna (ARI = 0.9871), dan proporsi segmen yang sangat wajar (8.8% - 33.3%). Agglomerative Clustering menghasilkan struktur partisi yang sangat kongruen dengan K-Means sehingga berfungsi sebagai validasi silang metodologis yang kuat. GMM menghasilkan Silhouette dan stabilitas yang lebih rendah, sementara HDBSCAN mengalami curse of dimensionality yang menyebabkan titik menyatu menjadi satu klaster raksasa (91.8%). K-Means direkomendasikan maju ke Tahap d (Penentuan k optimal).",
     "waktu_komparasi_detik": 61.4789
+  },
+  "tahap_d_g": {
+    "koreksi_tahap_b_perangkat": {
+      "crosstab_k5_perangkat": {
+        "0": {
+          "android": 0.0,
+          "ios": 1.0,
+          "web": 0.0
+        },
+        "1": {
+          "android": 0.908,
+          "ios": 0.092,
+          "web": 0.0
+        },
+        "2": {
+          "android": 1.0,
+          "ios": 0.0,
+          "web": 0.0
+        },
+        "3": {
+          "android": 0.908,
+          "ios": 0.091,
+          "web": 0.001
+        },
+        "4": {
+          "android": 0.0,
+          "ios": 0.0,
+          "web": 1.0
+        }
+      },
+      "keputusan": "perangkat dibuang dari fitur clustering; dipakai untuk profil"
+    },
+    "jumlah_fitur_final": 40,
+    "pemilihan_k": {
+      "2": {
+        "inertia": 636875.9791582092,
+        "silhouette": 0.11081670537451345,
+        "bic_gmm": -61296.979122733595,
+        "stabilitas_ari": 0.9947739303788831,
+        "cluster_terkecil": 0.4689083333333333
+      },
+      "3": {
+        "inertia": 592645.5650043339,
+        "silhouette": 0.11217069266883259,
+        "bic_gmm": -74116.31535285225,
+        "stabilitas_ari": 0.994189975225158,
+        "cluster_terkecil": 0.19968333333333332
+      },
+      "4": {
+        "inertia": 570920.956549854,
+        "silhouette": 0.10111806950246564,
+        "bic_gmm": -82989.56499320996,
+        "stabilitas_ari": 0.9913673240276271,
+        "cluster_terkecil": 0.1248
+      },
+      "5": {
+        "inertia": 554411.4838747893,
+        "silhouette": 0.09810115830263443,
+        "bic_gmm": -91100.39547178068,
+        "stabilitas_ari": 0.8520804897669532,
+        "cluster_terkecil": 0.104375
+      },
+      "6": {
+        "inertia": 538244.6796174627,
+        "silhouette": 0.07983957392112746,
+        "bic_gmm": -92319.06388101075,
+        "stabilitas_ari": 0.9896510882709606,
+        "cluster_terkecil": 0.10153333333333334
+      },
+      "7": {
+        "inertia": 524538.4605595043,
+        "silhouette": 0.0829025775658646,
+        "bic_gmm": -90013.90571879558,
+        "stabilitas_ari": 0.9890504279497316,
+        "cluster_terkecil": 0.0508
+      },
+      "8": {
+        "inertia": 516914.8625023022,
+        "silhouette": 0.07927878703615761,
+        "bic_gmm": -88054.13730570205,
+        "stabilitas_ari": 0.9211482170596745,
+        "cluster_terkecil": 0.05075
+      },
+      "9": {
+        "inertia": 510500.84782014036,
+        "silhouette": 0.06853669600781231,
+        "bic_gmm": -83212.17034530708,
+        "stabilitas_ari": 0.8186407528580689,
+        "cluster_terkecil": 0.05055833333333333
+      },
+      "10": {
+        "inertia": 501473.06066556176,
+        "silhouette": 0.07986765449090652,
+        "bic_gmm": -72771.91997034803,
+        "stabilitas_ari": 0.7708871481851058,
+        "cluster_terkecil": 0.014991666666666667
+      }
+    },
+    "k_terpilih": 6,
+    "banding_metode_k6": {
+      "K-Means": {
+        "silhouette": 0.07985087604483837,
+        "ARI_vs_KMeans": 1.0,
+        "cluster_terkecil": 0.10149166666666666
+      },
+      "GMM": {
+        "silhouette": 0.011377408228821153,
+        "ARI_vs_KMeans": 0.13086051249992559,
+        "cluster_terkecil": 0.056133333333333334
+      },
+      "Agglomerative (Ward)": {
+        "silhouette": 0.09207697588764668,
+        "ARI_vs_KMeans": 0.6925882907911707,
+        "cluster_terkecil": 0.053825
+      }
+    },
+    "stabilitas_bootstrap": {
+      "ari_vs_penuh_mean": 0.988662474493694,
+      "ari_vs_penuh_std": 0.0016618684850545386,
+      "ari_vs_penuh_min": 0.9845027013349328,
+      "ari_antar_ulangan_mean": 0.984016002485636,
+      "n_ulangan": 20
+    },
+    "anomali": {
+      "n": 1200,
+      "porsi": 0.01,
+      "batas_persentil": 99,
+      "batas_jarak": 3.3589957168955404
+    },
+    "segmen": [
+      {
+        "cluster": 0,
+        "nama": "Pendatang Baru Penjelajah",
+        "ciri_utama": "Member baru (3,5 bulan), sering membuka aplikasi tapi jarang membeli (konversi 2%)",
+        "aksi_marketing": "Onboarding: voucher pembelian kedua + rekomendasi produk personal",
+        "porsi": 0.101
+      },
+      {
+        "cluster": 1,
+        "nama": "Pembeli Premium Elektronik",
+        "ciri_utama": "Keranjang terbesar (Rp577 ribu), jarang memakai voucher, elektronik & perabot, usia 40",
+        "aksi_marketing": "Program loyalitas premium: cicilan 0% dan akses awal produk baru, bukan diskon",
+        "porsi": 0.149
+      },
+      {
+        "cluster": 2,
+        "nama": "Pelanggan Tertidur",
+        "ciri_utama": "Terakhir belanja 53 hari lalu, hanya 1 transaksi, sudah lama menjadi member, banyak COD",
+        "aksi_marketing": "Kampanye win-back: push/email 'kami rindu' + gratis ongkir COD terbatas",
+        "porsi": 0.181
+      },
+      {
+        "cluster": 3,
+        "nama": "Fashionista Paylater",
+        "ciri_utama": "81% pesanan memakai paylater, paling sering retur, fashion & gadget, belanja malam, usia 26",
+        "aksi_marketing": "Promo cicilan paylater + panduan ukuran/virtual try-on untuk menekan retur",
+        "porsi": 0.109
+      },
+      {
+        "cluster": 4,
+        "nama": "Pemburu Promo Muda",
+        "ciri_utama": "85% memakai voucher dan 71% flash sale, keranjang kecil, voucher digital & kecantikan, malam, usia 25",
+        "aksi_marketing": "Flash sale malam hari dan gamifikasi poin, dengan batas subsidi untuk menjaga margin",
+        "porsi": 0.233
+      },
+      {
+        "cluster": 5,
+        "nama": "Keluarga Setia",
+        "ciri_utama": "Paling sering belanja (15x/90 hari), konversi tertinggi (19%), ibu & bayi + makanan, pagi, usia 38",
+        "aksi_marketing": "Langganan/pesan ulang otomatis kebutuhan rumah tangga + bundel hemat, notifikasi pagi",
+        "porsi": 0.228
+      }
+    ]
   }
 }
